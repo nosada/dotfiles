@@ -3,7 +3,8 @@ set encoding=utf-8
 scriptencoding utf-8
 
 " settings for interface
-let g:hybrid_use_Xresources = 1
+let g:hybrid_custom_term_colors = 0
+let g:hybrid_reduced_contrast = 0
 set t_Co=256
 set background=dark
 hi clear CursorLine
