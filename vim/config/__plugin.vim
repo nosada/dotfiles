@@ -27,6 +27,7 @@ NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'kana/vim-submode'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'scrooloose/syntastic'
 
 call neobundle#end()
 
