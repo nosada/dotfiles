@@ -8,6 +8,7 @@ augroup END
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 
+
 " binary edit(xxd)mode (take by execution 'vim -b' or opening *.bin)
 augroup BinaryXXD
   autocmd!
@@ -19,6 +20,7 @@ augroup BinaryXXD
   autocmd BufWritePost * set nomod | endif
 augroup END
 
+
 " escape Japanese input mode when escape Insert Mode
 augroup MyVimrc
   autocmd!
@@ -26,13 +28,16 @@ augroup END
 " fcitx
 autocmd MyVimrc InsertLeave * call system('fcitx-remote -c')
 
+
 " use clipboard
 set clipboard+=unnamedplus,unnamed
+
 
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
+
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -56,6 +61,7 @@ endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2 " Always display tab-line
 
+
 " colaborate jedi and neocomplete
 autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#completions_enabled = 0
@@ -65,8 +71,10 @@ if !exists('g:neocomplete#force_omni_input_patterns')
 endif
 let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
+
 " do not show docstring
 autocmd FileType python setlocal completeopt-=preview
+
 
 " syntastic for pep8 and pyflakes
 set statusline+=%#warningmsg#

@@ -2,6 +2,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+
 " settings for interface
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 0
