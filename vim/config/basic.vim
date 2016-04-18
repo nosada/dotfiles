@@ -15,8 +15,8 @@ colorscheme hybrid
 " settings for editing
 syntax on
 set cursorline
-"set spelllang+=cjk
-"set spell
+set spelllang=en,cjk
+set spell
 set list
 set listchars=tab:>-,trail:-,eol:$,extends:>,precedes:<,nbsp:%
 set number
