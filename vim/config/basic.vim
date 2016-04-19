@@ -1,7 +1,8 @@
+" vim:set ts=2 sw=2 et:
+
 " default encoding
 set encoding=utf-8
 scriptencoding utf-8
-
 
 " settings for interface
 let g:hybrid_custom_term_colors = 1
@@ -11,12 +12,10 @@ set background=dark
 hi clear CursorLine
 colorscheme hybrid
 
-
 " settings for editing
 syntax on
 set cursorline
 set spelllang=en,cjk
-set spell
 set list
 set listchars=tab:>-,trail:-,eol:$,extends:>,precedes:<,nbsp:%
 set number

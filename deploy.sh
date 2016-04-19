@@ -6,21 +6,22 @@ else
 	ln -s ${PWD}/tmux.conf ${HOME}/.tmux.conf
 fi
 
-if [ -h ${HOME}/.vimrc ]; then
-	echo "${HOME}/.vimrc already exists."
-else
-	ln -s ${PWD}/vimrc ${HOME}/.vimrc
+if [ -e /usr/bin/vim ]; then
+	if [ -h ${HOME}/.vimrc ]; then
+		echo "${HOME}/.vimrc already exists."
+	else
+		ln -s ${PWD}/vim/init.vim ${HOME}/.vimrc
+	fi
+	if [ -h ${HOME}/.vim ]; then
+		echo "${HOME}/.vim/ already exists."
+	else
+		ln -s ${PWD}/vim/ ${HOME}/.vim
+	fi
 fi
-
-if [ -h ${HOME}/.vim ]; then
-	echo "${HOME}/.vim/ already exists."
-else
-	ln -s ${PWD}/vim ${HOME}/.vim
-fi
-
-if [ -d ${HOME}/.vim/bundle ]; then
-	echo "${HOME}/.vim/bundle/ already exists."
-else
-	mkdir -p ${HOME}/.vim/bundle/
-	git clone https://github.com/Shougo/neobundle.vim ${HOME}/.vim/bundle/neobundle.vim
+if [ -e /usr/bin/nvim ]; then
+	if [ -h ${HOME}/.config/nvim ]; then
+		echo "${HOME}/.config/nvim already exists."
+	else
+		ln -s ${PWD}/vim/ ${HOME}/.config/nvim
+	fi
 fi

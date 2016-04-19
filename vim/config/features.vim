@@ -1,3 +1,5 @@
+" vim:set ts=2 sw=2 et:
+
 " hilight em space
 augroup InsertHook
   autocmd!
@@ -21,17 +23,8 @@ augroup BinaryXXD
 augroup END
 
 
-" escape Japanese input mode when escape Insert Mode
-augroup MyVimrc
-  autocmd!
-augroup END
-" fcitx
-autocmd MyVimrc InsertLeave * call system('fcitx-remote -c')
-
-
 " use clipboard
 set clipboard+=unnamedplus,unnamed
-
 
 " Anywhere SID.
 function! s:SID_PREFIX()
@@ -66,10 +59,6 @@ set showtabline=2 " Always display tab-line
 autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
 
 " do not show docstring
