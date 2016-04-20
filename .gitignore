@@ -1,2 +1,2 @@
-vim/.init.vim-rplugin~
-vim/dein/*
+vim/.*
+vim/dein
