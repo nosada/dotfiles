@@ -55,7 +55,7 @@ let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2 " Always display tab-line
 
 
-" colaborate jedi and neocomplete
+" jedi setting
 autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
@@ -63,6 +63,12 @@ let g:jedi#auto_vim_configuration = 0
 
 " do not show docstring
 autocmd FileType python setlocal completeopt-=preview
+
+
+" Use deoplete.
+if has('nvim') && has('python3')
+  let g:deoplete#enable_at_startup = 1
+endif
 
 
 " syntastic for pep8 and pyflakes
