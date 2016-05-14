@@ -30,3 +30,6 @@ repo = 'Yggdroot/indentLine'
 
 [[plugins]]
 repo = 'kana/vim-submode'
+
+[[plugins]]
+repo = 'millermedeiros/vim-statline'
