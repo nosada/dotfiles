@@ -1,15 +1,16 @@
 " vim:set ts=2 sw=2 et:
 
+" set runtime path
+execute pathogen#infect()
+
 " hilight em space
 augroup InsertHook
   autocmd!
   autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
   autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
-
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
-
 
 " binary edit(xxd)mode (take by execution 'vim -b' or opening *.bin)
 augroup BinaryXXD
@@ -22,7 +23,6 @@ augroup BinaryXXD
   autocmd BufWritePost * set nomod | endif
 augroup END
 
-
 " use clipboard
 set clipboard+=unnamedplus,unnamed
 
@@ -30,7 +30,6 @@ set clipboard+=unnamedplus,unnamed
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
-
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -54,7 +53,6 @@ endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2 " Always display tab-line
 
-
 " jedi setting
 autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#completions_enabled = 0
@@ -64,12 +62,10 @@ let g:jedi#auto_vim_configuration = 0
 " do not show docstring
 autocmd FileType python setlocal completeopt-=preview
 
-
 " Use deoplete.
 if has('nvim') && has('python3')
   let g:deoplete#enable_at_startup = 1
 endif
-
 
 " syntastic for pep8 and pyflakes
 set statusline+=%#warningmsg#

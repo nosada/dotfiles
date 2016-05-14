@@ -33,3 +33,6 @@ repo = 'kana/vim-submode'
 
 [[plugins]]
 repo = 'millermedeiros/vim-statline'
+
+[[plugins]]
+repo = 'tpope/vim-pathogen'
