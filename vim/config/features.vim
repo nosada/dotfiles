@@ -26,12 +26,12 @@ augroup END
 " use clipboard
 set clipboard+=unnamedplus,unnamed
 
-" Anywhere SID.
+" anywhere SID
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
-" Set tabline.
+" set tabline
 function! s:my_tabline()  "{{{
   let s = ''
   for i in range(1, tabpagenr('$'))
@@ -58,14 +58,16 @@ autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
 
-
 " do not show docstring
 autocmd FileType python setlocal completeopt-=preview
 
-" Use deoplete.
+" deoplete setting
 if has('nvim') && has('python3')
   let g:deoplete#enable_at_startup = 1
 endif
+
+" statline setting
+let g:statline_syntastic = 0
 
 " syntastic for pep8 and pyflakes
 set statusline+=%#warningmsg#
