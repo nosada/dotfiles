@@ -7,7 +7,6 @@ scriptencoding utf-8
 " settings for interface
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 0
-set t_Co=256
 set background=dark
 hi clear CursorLine
 colorscheme hybrid
