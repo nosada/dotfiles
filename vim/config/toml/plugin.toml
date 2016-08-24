@@ -2,9 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'w0ng/vim-hybrid'
-
-[[plugins]]
 repo = 'Townk/vim-autoclose'
 
 [[plugins]]
@@ -42,3 +39,6 @@ repo = 'scrooloose/syntastic'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'

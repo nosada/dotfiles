@@ -19,10 +19,10 @@ endif
 
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
-  let s:toml      = s:dein_toml_dir . '/dein.toml'
-  let s:lazy_toml = s:dein_toml_dir . '/dein_lazy.toml'
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+  let s:plugin      = s:dein_toml_dir . '/plugin.toml'
+  let s:colorscheme = s:dein_toml_dir . '/colorscheme.toml'
+  call dein#load_toml(s:plugin,      {'lazy': 0})
+  call dein#load_toml(s:colorscheme, {'lazy': 0})
   call dein#end()
   call dein#save_state()
 endif
