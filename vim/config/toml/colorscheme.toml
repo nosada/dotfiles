@@ -1,5 +1,2 @@
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
-
-[[plugins]]
-repo = 'nanotech/jellybeans.vim'

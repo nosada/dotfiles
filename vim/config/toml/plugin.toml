@@ -42,3 +42,6 @@ repo = 'Shougo/deoplete.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'
