@@ -39,3 +39,9 @@ if [ -e /usr/bin/nvim ]; then
 		ln -s ${PWD}/vim/ ${HOME}/.config/nvim
 	fi
 fi
+
+if [ -e ${HOME}/.config/fish/config.fish ]; then
+	echo "${HOME}/.config/fish/config.fish already exists"
+else
+	ln -s ${PWD}/config.fish "${HOME}/.config/fish/config.fish"
+fi
