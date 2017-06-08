@@ -1,6 +1,6 @@
 # vim:set ts=2 sw=2 et:
 
-set PATH $PATH /usr/local/bin /home/nosada/Scripts
+set PATH $PATH /usr/local/bin {$HOME}/Scripts
 
 alias diff='colordiff'
 alias du='cdu -isdh'
