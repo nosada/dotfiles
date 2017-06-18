@@ -40,8 +40,15 @@ if [ -e /usr/bin/nvim ]; then
 	fi
 fi
 
+# deploy fish configs
 if [ -e ${HOME}/.config/fish/config.fish ]; then
 	echo "${HOME}/.config/fish/config.fish already exists"
 else
-	ln -s ${PWD}/config.fish "${HOME}/.config/fish/config.fish"
+	ln -s ${PWD}/fish/config.fish "${HOME}/.config/fish/config.fish"
+fi
+
+if [ -e ${HOME}/.config/fish/fishfile ]; then
+	echo "${HOME}/.config/fish/fishfile already exists"
+else
+	ln -s ${PWD}/fish/fishfile "${HOME}/.config/fish/fishfile"
 fi
