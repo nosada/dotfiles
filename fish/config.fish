@@ -14,3 +14,5 @@ function fish_greeting
   echo
 end
 funcsave fish_greeting
+
+fish_vi_mode
