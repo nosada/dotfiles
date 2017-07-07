@@ -15,4 +15,4 @@ function fish_greeting
 end
 funcsave fish_greeting
 
-fish_vi_mode
+fish_vi_key_bindings
