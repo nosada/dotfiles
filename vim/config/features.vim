@@ -1,7 +1,11 @@
 " vim:set ts=2 sw=2 et:
 
-" set runtime path
-execute pathogen#infect()
+" Pathogen load
+filetype off
+call pathogen#infect()
+call pathogen#helptags()
+filetype plugin indent on
+syntax on
 
 " hilight em space
 augroup InsertHook
@@ -53,19 +57,6 @@ endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2 " Always display tab-line
 
-" jedi setting
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-
-" do not show docstring
-autocmd FileType python setlocal completeopt-=preview
-
-" deoplete setting
-if has('nvim') && has('python3')
-  let g:deoplete#enable_at_startup = 1
-endif
-
 " syntastic setting
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -75,3 +66,17 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:statline_syntastic = 1
+let g:syntastic_shell = "/bin/sh"
+
+" jedi setting
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 1
+let g:jedi#auto_vim_configuration = 1
+
+" do not show docstring
+autocmd FileType python setlocal completeopt-=preview
+
+" deoplete setting
+if has('nvim') && has('python3')
+  let g:deoplete#enable_at_startup = 1
+endif

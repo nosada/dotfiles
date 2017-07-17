@@ -45,3 +45,9 @@ repo = 'Shougo/unite.vim'
 
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
+
+[[plugins]]
+repo = 'python-mode/python-mode'
+
+[[plugins]]
+repo = 'powerman/vim-plugin-viewdoc'
