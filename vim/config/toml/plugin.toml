@@ -2,10 +2,10 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Townk/vim-autoclose'
+repo = 'vim-airline/vim-airline'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
+repo = 'Townk/vim-autoclose'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -20,7 +20,7 @@ repo = 'plasticboy/vim-markdown'
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'davidhalter/jedi-vim'
+repo = 'zchee/deoplete-jedi'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
@@ -42,9 +42,6 @@ repo = 'Shougo/deoplete.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'terryma/vim-multiple-cursors'
 
 [[plugins]]
 repo = 'python-mode/python-mode'

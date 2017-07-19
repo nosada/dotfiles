@@ -11,6 +11,6 @@ let g:conf_dir = g:base_dir . '/config'
 execute 'set runtimepath^=' . fnamemodify(g:conf_dir, ':p')
 
 runtime! config/plugin.vim
-runtime! config/features.vim
-runtime! config/basic.vim
+runtime! config/base.vim
 runtime! config/keymap.vim
+runtime! config/features.vim
