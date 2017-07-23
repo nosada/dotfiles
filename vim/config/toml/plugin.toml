@@ -48,3 +48,6 @@ repo = 'python-mode/python-mode'
 
 [[plugins]]
 repo = 'powerman/vim-plugin-viewdoc'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
