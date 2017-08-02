@@ -2,6 +2,15 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
 repo = 'vim-airline/vim-airline'
 
 [[plugins]]
@@ -38,16 +47,8 @@ repo = 'tpope/vim-pathogen'
 repo = 'scrooloose/syntastic'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
 repo = 'python-mode/python-mode'
 
 [[plugins]]
 repo = 'powerman/vim-plugin-viewdoc'
 
-[[plugins]]
-repo = 'Shougo/neomru.vim'

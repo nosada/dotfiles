@@ -1,54 +1,26 @@
 #!/bin/bash
 
+USER_CONF_DIR="${HOME}/.config"
+USER_LOCAL_DIR="${HOME}/.local"
+
+function check_vim_existence() { which "vim" &> /dev/null; }
+function check_neovim_existence() { which "nvim" &> /dev/null; }
+
 # deploy tmux config
-if [ -h ${HOME}/.tmux.conf ]; then
-	echo "${HOME}/.tmux.conf already exists."
-else
-	ln -s ${PWD}/tmux.conf ${HOME}/.tmux.conf
-fi
+[ ! -h "${HOME}/.tmux.conf" ] && ln -s "${PWD}/tmux.conf" "${HOME}/.tmux.conf"
 
 # deploy and setup newsbeuter
-if [ -h ${HOME}/.config/newsbeuter ]; then
-	echo "${HOME}/.config/newsbeuter/ already exists."
-else
-	ln -s ${PWD}/newsbeuter ${HOME}/.config/newsbeuter
-fi
-if [ -e ${HOME}/.local/share/newsbeuter ];then
-	echo "${HOME}/.local/share/newsbeuter/ already exists."
-else
-	mkdir -p ${HOME}/.local/share/newsbeuter
-fi
+[ ! -e "${USER_CONF_DIR}/newsbeuter" ] && ln -s "${PWD}/newsbeuter" "${USER_CONF_DIR}/newsbeuter"
+[ ! -e "${USER_LOCAL_DIR}/share/newsbeuter" ] && mkdir -p "${HOME}/.local/share/newsbeuter"
 
-# deploy vim (or neovim, if used) config
-if [ -e /usr/bin/vim ]; then
-	if [ -h ${HOME}/.vimrc ]; then
-		echo "${HOME}/.vimrc already exists."
-	else
-		ln -s ${PWD}/vim/init.vim ${HOME}/.vimrc
-	fi
-	if [ -h ${HOME}/.vim ]; then
-		echo "${HOME}/.vim/ already exists."
-	else
-		ln -s ${PWD}/vim/ ${HOME}/.vim
-	fi
-fi
-if [ -e /usr/bin/nvim ]; then
-	if [ -h ${HOME}/.config/nvim ]; then
-		echo "${HOME}/.config/nvim already exists."
-	else
-		ln -s ${PWD}/vim/ ${HOME}/.config/nvim
-	fi
-fi
+# deploy vim config
+check_vim_existence && [ ! -e "${HOME}/.vimrc" ] && ln -s "${PWD}/vim/init.vim" "${HOME}/.vimrc"
+check_vim_existence && [ ! -e "${HOME}/.vim" ] && ln -s "${PWD}/vim/" "${HOME}/.vim"
+
+# deploy neovim config
+check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && ln -s "${PWD}/vim/" "${USER_CONF_DIR}/nvim"
 
 # deploy fish configs
-if [ -e ${HOME}/.config/fish/config.fish ]; then
-	echo "${HOME}/.config/fish/config.fish already exists"
-else
-	ln -s ${PWD}/fish/config.fish "${HOME}/.config/fish/config.fish"
-fi
-
-if [ -e ${HOME}/.config/fish/fishfile ]; then
-	echo "${HOME}/.config/fish/fishfile already exists"
-else
-	ln -s ${PWD}/fish/fishfile "${HOME}/.config/fish/fishfile"
-fi
+FISH_DIR="${USER_CONF_DIR}/fish"
+[ ! -e "${FISH_DIR}/config.fish" ] && ln -s "${PWD}/fish/config.fish" "${FISH_DIR}/config.fish"
+[ ! -e "${FISH_DIR}/fishfile" ] && ln -s "${PWD}/fish/fishfile" "${FISH_DIR}/fishfile"

@@ -35,16 +35,16 @@ call submode#map('bufmove', 'n', '', '<', '<C-w><')
 call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
-" unite
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" denite
+nnoremap <silent> ,ub :<C-u>Denite buffer<CR>
+nnoremap <silent> ,uf :<C-u>DeniteBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Denite -buffer-name=register register<CR>
+nnoremap <silent> ,um :<C-u>Denite file_mru<CR>
+nnoremap <silent> ,uu :<C-u>Denite buffer file_mru<CR>
+nnoremap <silent> ,ua :<C-u>DeniteBufferDir -buffer-name=files buffer file_mru file<CR>
+au FileType denite nnoremap <silent> <buffer> <expr> <C-j> denite#do_action('split')
+au FileType denite inoremap <silent> <buffer> <expr> <C-j> denite#do_action('split')
+au FileType denite nnoremap <silent> <buffer> <expr> <C-l> denite#do_action('vsplit')
+au FileType denite inoremap <silent> <buffer> <expr> <C-l> denite#do_action('vsplit')
+au FileType denite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType denite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
