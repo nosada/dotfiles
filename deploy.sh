@@ -24,3 +24,7 @@ check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && ln -s "${PWD}/vim/"
 FISH_DIR="${USER_CONF_DIR}/fish"
 [ ! -e "${FISH_DIR}/config.fish" ] && ln -s "${PWD}/fish/config.fish" "${FISH_DIR}/config.fish"
 [ ! -e "${FISH_DIR}/fishfile" ] && ln -s "${PWD}/fish/fishfile" "${FISH_DIR}/fishfile"
+
+# return code is 1 if everything ware done correctly, but it's wrong (because worked 'correctly')
+# return 0 and exit
+exit 0
