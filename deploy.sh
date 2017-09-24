@@ -25,6 +25,15 @@ FISH_DIR="${USER_CONF_DIR}/fish"
 [ ! -e "${FISH_DIR}/config.fish" ] && ln -s "${PWD}/fish/config.fish" "${FISH_DIR}/config.fish"
 [ ! -e "${FISH_DIR}/fishfile" ] && ln -s "${PWD}/fish/fishfile" "${FISH_DIR}/fishfile"
 
-# return code is 1 if everything ware done correctly, but it's wrong (because worked 'correctly')
-# return 0 and exit
+# check existense of maybe-already-deployed configs
+[ ! -h "${HOME}/.tmux.conf" ] && exit 1
+[ ! -e "${USER_CONF_DIR}/newsbeuter" ] && exit 1
+[ ! -e "${USER_LOCAL_DIR}/share/newsbeuter" ] && exit 1
+check_vim_existence && [ ! -e "${HOME}/.vimrc" ] && exit 1
+check_vim_existence && [ ! -e "${HOME}/.vim" ] && exit 1
+check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && exit 1
+[ ! -e "${FISH_DIR}/config.fish" ] && exit 1
+[ ! -e "${FISH_DIR}/fishfile" ] && exit 1
+
+# return 0 if everything ok
 exit 0

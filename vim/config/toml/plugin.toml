@@ -52,3 +52,8 @@ repo = 'python-mode/python-mode'
 [[plugins]]
 repo = 'powerman/vim-plugin-viewdoc'
 
+[[plugins]]
+repo = 'tmux-plugins/vim-tmux'
+
+[[plugins]]
+repo = 'tmux-plugins/vim-tmux-focus-events'
