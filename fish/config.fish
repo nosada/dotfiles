@@ -9,7 +9,7 @@ alias df='dfc'
 alias C='xsel --input --clipboard'
 
 function fish_greeting
-  fortune -a | cowsay
+  fortune -a | cowsay | lolcat
   echo
 end
 funcsave fish_greeting
