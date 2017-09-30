@@ -21,6 +21,7 @@ check_vim_existence && rm -f ${HOME}/.vim
 check_neovim_existence && rm -f ${HOME}/.config/nvim
 
 # remove fish symlinks
+FISH_DIR="${USER_CONF_DIR}/fish"
 rm -f ${FISH_DIR}/config.fish
 rm -f ${FISH_DIR}/fishfile
 
