@@ -1,15 +1,21 @@
 # How to use
 
+```
+$ git clone https://github.com/nosada/dotfiles.git ${HOME}/.dotfiles
+```
+
+and then:
+
 ## deploy dotfiles:
 
 ```
-$ ./deploy.sh
+$ ${HOME}/.dotfiles/deploy.sh
 ```
 
 ## clean dotfiles:
 
 ```
-$ ./clean.sh
+$ ${HOME}/.dotfiles/clean.sh
 ```
 
 # Covered configs
