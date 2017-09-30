@@ -5,6 +5,7 @@ USER_LOCAL_DIR="${HOME}/.local"
 
 function check_vim_existence() { which "vim" &> /dev/null; }
 function check_neovim_existence() { which "nvim" &> /dev/null; }
+function clean_file() { [ -e "$1" ] && rm -f $1 &> /dev/null; }
 
 # deploy tmux config
 [ ! -h "${HOME}/.tmux.conf" ] && ln -s "${PWD}/tmux.conf" "${HOME}/.tmux.conf"
@@ -20,10 +21,12 @@ check_vim_existence && [ ! -e "${HOME}/.vim" ] && ln -s "${PWD}/vim/" "${HOME}/.
 # deploy neovim config
 check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && ln -s "${PWD}/vim/" "${USER_CONF_DIR}/nvim"
 
-# deploy fish configs
 FISH_DIR="${USER_CONF_DIR}/fish"
-[ ! -e "${FISH_DIR}/config.fish" ] && ln -s "${PWD}/fish/config.fish" "${FISH_DIR}/config.fish"
-[ ! -e "${FISH_DIR}/fishfile" ] && ln -s "${PWD}/fish/fishfile" "${FISH_DIR}/fishfile"
+# install fisherman (https://github.com/fisherman/fisherman)
+curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
+# deploy fish configs
+clean_file "${FISH_DIR}/config.fish" && ln -s "${PWD}/fish/config.fish" "${FISH_DIR}/config.fish"
+clean_file "${FISH_DIR}/fishfile" && ln -s "${PWD}/fish/fishfile" "${FISH_DIR}/fishfile"
 
 # check existense of maybe-already-deployed configs
 [ ! -h "${HOME}/.tmux.conf" ] && exit 1
