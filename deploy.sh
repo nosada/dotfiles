@@ -10,6 +10,13 @@ function check_neovim_existence() { which "nvim" &> /dev/null; }
 # deploy tmux config
 [ ! -h "${HOME}/.tmux.conf" ] && ln -s "${DOTFILES_DIR}/tmux.conf" "${HOME}/.tmux.conf"
 
+# install fisherman (https://github.com/fisherman/fisherman)
+FISH_DIR="${USER_CONF_DIR}/fish"
+curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
+# deploy fish configs
+[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
+[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
+
 # deploy and setup newsbeuter
 [ ! -e "${USER_CONF_DIR}/newsbeuter" ] && ln -s "${DOTFILES_DIR}/newsbeuter" "${USER_CONF_DIR}/newsbeuter"
 [ ! -e "${USER_LOCAL_DIR}/share/newsbeuter" ] && mkdir -p "${HOME}/.local/share/newsbeuter"
@@ -20,13 +27,6 @@ check_vim_existence && [ ! -e "${HOME}/.vim" ] && ln -s "${DOTFILES_DIR}/vim/" "
 
 # deploy neovim config
 check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
-
-FISH_DIR="${USER_CONF_DIR}/fish"
-# install fisherman (https://github.com/fisherman/fisherman)
-curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
-# deploy fish configs
-[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
-[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 
 # check existense of maybe-already-deployed configs
 [ ! -h "${HOME}/.tmux.conf" ] && exit 1
