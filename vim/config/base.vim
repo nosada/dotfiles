@@ -13,7 +13,6 @@ hi clear CursorLine
 colorscheme hybrid
 
 " settings for editing
-syntax on
 set cursorline
 set spelllang=en,cjk
 set list

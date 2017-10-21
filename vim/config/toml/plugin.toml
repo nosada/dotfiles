@@ -57,3 +57,6 @@ repo = 'tmux-plugins/vim-tmux'
 
 [[plugins]]
 repo = 'tmux-plugins/vim-tmux-focus-events'
+
+[[plugins]]
+repo = 'dag/vim-fish'
