@@ -28,6 +28,12 @@ check_vim_existence && [ ! -e "${HOME}/.vim" ] && ln -s "${DOTFILES_DIR}/vim/" "
 # deploy neovim config
 check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
 
+# install scripts to ${HOME}/Scripts
+if [ ! -d "${HOME}/Scripts/" ]; then
+	mkdir -p "${HOME}/Scripts"
+fi
+rsync -avu ${DOTFILES_DIR}/scripts/ ${HOME}/Scripts/
+
 # check existense of maybe-already-deployed configs
 [ ! -h "${HOME}/.tmux.conf" ] && exit 1
 [ ! -e "${USER_CONF_DIR}/newsbeuter" ] && exit 1

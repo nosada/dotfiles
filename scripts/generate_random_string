@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]; then
+	LENGTH=$1
+else
+	echo "usage: $0 <length>" > /dev/stderr
+	exit 1
+fi
+
+cat /dev/urandom | tr -dc '[:print:]' | head -c ${LENGTH}
