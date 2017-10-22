@@ -17,9 +17,9 @@ curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
 [ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
 [ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 
-# deploy and setup newsbeuter
-[ ! -e "${USER_CONF_DIR}/newsbeuter" ] && ln -s "${DOTFILES_DIR}/newsbeuter" "${USER_CONF_DIR}/newsbeuter"
-[ ! -e "${USER_LOCAL_DIR}/share/newsbeuter" ] && mkdir -p "${HOME}/.local/share/newsbeuter"
+# deploy and setup newsboat
+[ ! -e "${USER_CONF_DIR}/newsboat" ] && ln -s "${DOTFILES_DIR}/newsboat" "${USER_CONF_DIR}/newsboat"
+[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && mkdir -p "${HOME}/.local/share/newsboat"
 
 # deploy vim config
 check_vim_existence && [ ! -e "${HOME}/.vimrc" ] && ln -s "${DOTFILES_DIR}/vim/init.vim" "${HOME}/.vimrc"
@@ -36,8 +36,8 @@ rsync -avu ${DOTFILES_DIR}/scripts/ ${HOME}/Scripts/
 
 # check existense of maybe-already-deployed configs
 [ ! -h "${HOME}/.tmux.conf" ] && exit 1
-[ ! -e "${USER_CONF_DIR}/newsbeuter" ] && exit 1
-[ ! -e "${USER_LOCAL_DIR}/share/newsbeuter" ] && exit 1
+[ ! -e "${USER_CONF_DIR}/newsboat" ] && exit 1
+[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit 1
 check_vim_existence && [ ! -e "${HOME}/.vimrc" ] && exit 1
 check_vim_existence && [ ! -e "${HOME}/.vim" ] && exit 1
 check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && exit 1

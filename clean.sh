@@ -9,9 +9,9 @@ function check_neovim_existence() { which "nvim" &> /dev/null; }
 # remove symlink of tmux config
 rm -f ${HOME}/.tmux.conf
 
-# remove symlink and directory for newsbeuter
-rm -f ${USER_CONF_DIR}/newsbeuter
-rm -rf ${USER_LOCAL_DIR}/share/newsbeuter
+# remove symlink and directory for newsboat
+rm -f ${USER_CONF_DIR}/newsboat
+rm -rf ${USER_LOCAL_DIR}/share/newsboat
 
 # remove vim symlinks
 check_vim_existence && rm -f ${HOME}/.vimrc
@@ -27,8 +27,8 @@ rm -f ${FISH_DIR}/fishfile
 
 # check existense of maybe-already-deployed configs
 [ -h "${HOME}/.tmux.conf" ] && exit 1
-[ -e "${USER_CONF_DIR}/newsbeuter" ] && exit 1
-[ -e "${USER_LOCAL_DIR}/share/newsbeuter" ] && exit 1
+[ -e "${USER_CONF_DIR}/newsboat" ] && exit 1
+[ -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit 1
 check_vim_existence && [ -e "${HOME}/.vimrc" ] && exit 1
 check_vim_existence && [ -e "${HOME}/.vim" ] && exit 1
 check_neovim_existence && [ -h "${HOME}/.config/nvim" ] && exit 1
