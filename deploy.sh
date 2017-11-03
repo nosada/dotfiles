@@ -7,42 +7,59 @@ USER_LOCAL_DIR="${HOME}/.local"
 function check_vim_existence() { which "vim" &> /dev/null; }
 function check_neovim_existence() { which "nvim" &> /dev/null; }
 
-# deploy tmux config
-[ ! -h "${HOME}/.tmux.conf" ] && ln -s "${DOTFILES_DIR}/tmux.conf" "${HOME}/.tmux.conf"
+function set_up_tmux() {
+	[ ! -h "${HOME}/.tmux.conf" ] && ln -s "${DOTFILES_DIR}/tmux.conf" "${HOME}/.tmux.conf"
+	[ ! -h "${HOME}/.tmux.conf" ] && exit 1
+}
 
-# install fisherman (https://github.com/fisherman/fisherman)
-FISH_DIR="${USER_CONF_DIR}/fish"
-curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
-# deploy fish configs
-[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
-[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
+function set_up_fish_shell() {
+	FISH_DIR="${USER_CONF_DIR}/fish"
+	curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
+	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
+	[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
+	[ ! -e "${FISH_DIR}/config.fish" ] && exit 1
+	[ ! -e "${FISH_DIR}/fishfile" ] && exit 1
+}
 
-# deploy and setup newsboat
-[ ! -e "${USER_CONF_DIR}/newsboat" ] && ln -s "${DOTFILES_DIR}/newsboat" "${USER_CONF_DIR}/newsboat"
-[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && mkdir -p "${HOME}/.local/share/newsboat"
+function set_up_newsboat() {
+	[ ! -e "${USER_CONF_DIR}/newsboat" ] && ln -s "${DOTFILES_DIR}/newsboat" "${USER_CONF_DIR}/newsboat"
+	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && mkdir -p "${HOME}/.local/share/newsboat"
+	[ ! -e "${USER_CONF_DIR}/newsboat" ] && exit 1
+	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit 1
+}
 
-# deploy vim config
-check_vim_existence && [ ! -e "${HOME}/.vimrc" ] && ln -s "${DOTFILES_DIR}/vim/init.vim" "${HOME}/.vimrc"
-check_vim_existence && [ ! -e "${HOME}/.vim" ] && ln -s "${DOTFILES_DIR}/vim/" "${HOME}/.vim"
+function set_up_aria2() {
+	[ ! -e "${USER_CONF_DIR}/aria2" ] && ln -s "${DOTFILES_DIR}/aria2" "${USER_CONF_DIR}/aria2"
+	[ ! -e "${USER_CONF_DIR}/aria2" ] && exit 1
+}
 
-# deploy neovim config
-check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
+function set_up_vim() {
+	[ ! -e "${HOME}/.vimrc" ] && ln -s "${DOTFILES_DIR}/vim/init.vim" "${HOME}/.vimrc"
+	[ ! -e "${HOME}/.vim" ] && ln -s "${DOTFILES_DIR}/vim/" "${HOME}/.vim"
+	[ ! -e "${HOME}/.vimrc" ] && exit 1
+	[ ! -e "${HOME}/.vim" ] && exit 1
+}
 
-# install scripts to ${HOME}/Scripts
-if [ ! -d "${HOME}/Scripts/" ]; then
-	mkdir -p "${HOME}/Scripts"
-fi
-rsync -avu ${DOTFILES_DIR}/scripts/ ${HOME}/Scripts/
+function set_up_neovim() {
+	[ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
+	[ ! -h "${HOME}/.config/nvim" ] && exit 1
+}
 
-# check existense of maybe-already-deployed configs
-[ ! -h "${HOME}/.tmux.conf" ] && exit 1
-[ ! -e "${USER_CONF_DIR}/newsboat" ] && exit 1
-[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit 1
-check_vim_existence && [ ! -e "${HOME}/.vimrc" ] && exit 1
-check_vim_existence && [ ! -e "${HOME}/.vim" ] && exit 1
-check_neovim_existence && [ ! -h "${HOME}/.config/nvim" ] && exit 1
-[ ! -e "${FISH_DIR}/config.fish" ] && exit 1
-[ ! -e "${FISH_DIR}/fishfile" ] && exit 1
+function install_user_scripts() {
+	if [ ! -d "${HOME}/Scripts/" ]; then
+		mkdir -p "${HOME}/Scripts"
+	fi
+	rsync -avu ${DOTFILES_DIR}/scripts/ ${HOME}/Scripts/
+}
+
+# call setup functions
+set_up_tmux
+set_up_fish_shell
+set_up_newsboat
+set_up_aria2
+check_vim_existence && set_up_vim
+check_neovim_existence && set_up_neovim
+install_user_scripts
 
 # return 0 if everything ok
 exit 0

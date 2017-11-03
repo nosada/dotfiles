@@ -23,4 +23,5 @@ $ ${HOME}/.dotfiles/clean.sh
 - vim
 - neovim
 - fish
-- newsbeuter
+- newsboat
+- aria2
