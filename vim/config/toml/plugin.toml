@@ -60,3 +60,6 @@ repo = 'tmux-plugins/vim-tmux-focus-events'
 
 [[plugins]]
 repo = 'dag/vim-fish'
+
+[[plugins]]
+repo = 'kassio/neoterm'
