@@ -1,10 +1,20 @@
 #!/bin/bash
 
-if [ $# -eq 1 ]; then
-	LENGTH=$1
+if [ $# -eq 2 ]; then
+	if [ "$1" = "alnum" ] || [ "$1" = "print" ]; then
+		TYPE=$1
+	else
+		echo "Invalid argument: '$1'"
+		exit 1
+	fi
+	LENGTH=$2
 else
-	echo "usage: $0 <length>" > /dev/stderr
+	echo "usage: $0 <alnum|print> <length>" > /dev/stderr
+	echo "- Specify 'alnum' if you want to use only alphabets and numbers"
+	echo "- Specify 'print' if you want to use all of ascii letters"
+	echo "- Specify length of string as 'length' argument"
 	exit 1
 fi
 
-cat /dev/urandom | tr -dc '[:print:]' | head -c ${LENGTH}
+
+cat /dev/urandom | tr -dc '[:'${TYPE}':]' | head -c ${LENGTH}
