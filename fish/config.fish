@@ -1,6 +1,6 @@
 # vim:set ts=2 sw=2 et:
 
-set PATH $PATH /usr/local/bin {$HOME}/Scripts
+set PATH $PATH /usr/local/bin {$HOME}/Scripts /opt/android-sdk/platform-tools
 
 alias diff='colordiff'
 alias du='cdu -isdh'
