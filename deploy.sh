@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_DIR="${HOME}/.dotfiles"
+DOTFILES_DIR=`cd $(dirname $0); pwd`
 USER_CONF_DIR="${HOME}/.config"
 USER_LOCAL_DIR="${HOME}/.local"
 
