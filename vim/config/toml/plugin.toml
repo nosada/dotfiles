@@ -63,3 +63,9 @@ repo = 'dag/vim-fish'
 
 [[plugins]]
 repo = 'kassio/neoterm'
+
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
