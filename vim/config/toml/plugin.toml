@@ -69,3 +69,6 @@ repo = 'AndrewRadev/switch.vim'
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'

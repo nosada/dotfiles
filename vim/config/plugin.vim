@@ -1,7 +1,5 @@
 " vim:set ts=2 sw=2 et:
 
-filetype plugin indent on
-
 let s:dein_dir = g:base_dir . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
