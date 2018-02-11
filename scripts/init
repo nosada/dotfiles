@@ -1,14 +1,17 @@
 #!/bin/fish
 
 function load_ssh_keys
-	set SSH_DIR "$HOME/.ssh"
-	echo "Load SSH keys in $HOME/.ssh/"
-	for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
-		set SSH_KEY "$SSH_DIR/$KEY"
-		get --prompt "Load '$SSH_KEY' ? [y/N]" | read -l CONFIRM
-		switch $CONFIRM
-			case Y y
-				ssh-add "$SSH_KEY"
+	set BASEDIR "$HOME/.ssh"
+	for SUBDIR in (tree --noreport -d $BASEDIR | awk '{print $2}' | tail -n +2)
+		set SSH_DIR "$BASEDIR/$SUBDIR"
+		echo "Load SSH keys in $SSH_DIR"
+		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
+			set SSH_KEY "$SSH_DIR/$KEY"
+			get --prompt "Load '$SSH_KEY' ? [y/N]" | read -l CONFIRM
+			switch $CONFIRM
+				case Y y
+					ssh-add "$SSH_KEY"
+			end
 		end
 	end
 end
