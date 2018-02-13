@@ -5,6 +5,7 @@ alias du='cdu -isdh'
 alias top='htop'
 alias df='dfc'
 alias C='xsel --input --clipboard'
+alias open='xdg-open'
 
 function fish_greeting
   fortune -a | cowsay | lolcat
