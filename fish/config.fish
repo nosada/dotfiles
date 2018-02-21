@@ -4,6 +4,7 @@ alias diff='colordiff'
 alias du='cdu -isdh'
 alias top='htop'
 alias df='dfc'
+alias ls='ls --color --group-directories-first'
 alias C='xsel --input --clipboard'
 alias open='xdg-open'
 
