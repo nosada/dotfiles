@@ -1,4 +1,6 @@
 #
+# This ls.fish is based on fish-shell's original file:
+# https://github.com/fish-shell/fish-shell/blob/master/share/functions/ls.fish
 # Make ls use colors if we are on a system that supports that feature and writing to stdout.
 #
 if command ls --version >/dev/null ^/dev/null
