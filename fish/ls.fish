@@ -1,44 +1,36 @@
-#
-# This ls.fish is based on fish-shell's original file:
-# https://github.com/fish-shell/fish-shell/blob/master/share/functions/ls.fish
-# Make ls use colors if we are on a system that supports that feature and writing to stdout.
-#
-if command ls --version >/dev/null ^/dev/null
-    # This appears to be GNU ls.
-    function ls --description "List contents of directory"
-        set -l param -FG --color=auto --group-directories-first
-        if isatty 1
-            set param $param --indicator-style=classify
-        end
-        command ls $param $argv
+function ls --description "List contents of directory"
+    set -l param -FG --color=auto --group-directories-first
+    if isatty 1
+        set param $param --indicator-style=classify
     end
 
-    if not set -q LS_COLORS
-        if command -sq dircolors
-            set -l colorfile
-            for file in ~/.dir_colors ~/.dircolors /etc/DIR_COLORS
-                if test -f $file
-                    set colorfile $file
-                    break
-                end
-            end
-            # Here we rely on the legacy behavior of `dircolors -c` producing output suitable for
-            # csh in order to extract just the data we're interested in.
-            set -gx LS_COLORS (dircolors -c $colorfile | string split ' ')[3]
-            # The value should always be quoted but be conservative and check first.
-            if string match -qr '^([\'"]).*\1$' -- $LS_COLORS
-                set LS_COLORS (string match -r '^.(.*).$' $LS_COLORS)[2]
+    if command ls --version >/dev/null ^/dev/null
+        command ls $param $argv
+    else if command gls --version >/dev/null ^/dev/null
+        command gls $param $argv
+    end
+end
+
+if not set -q LS_COLORS
+    if begin; command -sq dircolors; or command -sq gdircolors; end
+        set -l colorfile
+        for file in ~/.dir_colors ~/.dircolors /etc/DIR_COLORS
+            if test -f $file
+                set colorfile $file
+                break
             end
         end
     end
-else if command ls -G / >/dev/null ^/dev/null
-    # It looks like BSD, OS X and a few more which support colors through the -G switch instead.
-    function ls --description "List contents of directory"
-        command ls -FG --color=auto --group-directories-first $argv
+
+    if command -sq dircolors
+        set -gx LS_COLORS (dircolors -c $colorfile | string split ' ')[3]
+    else if command -sq gdircolors
+        set -gx LS_COLORS (gdircolors -c $colorfile | string split ' ')[3]
     end
-else if command ls --color / >/dev/null 2>/dev/null
-    # Solaris 11's ls command takes a --color flag
-    function ls --description "List contents of directory"
-        command ls --color $argv
+
+    if string match -qr '^([\'"]).*\1$' -- $LS_COLORS
+        set LS_COLORS (string match -r '^.(.*).$' $LS_COLORS)[2]
     end
 end
+
+# vim:set ts=4 sw=4 et:
