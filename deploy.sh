@@ -15,13 +15,16 @@ function set_up_tmux() {
 function set_up_fish_shell() {
 	FISH_DIR="${USER_CONF_DIR}/fish"
 	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
+	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
 	curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
 	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
 	[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
+	[ ! -h "${FISH_CONFIGS_DIR}/alias.fish" ] && ln -s "${DOTFILES_DIR}/fish/alias.fish" "${FISH_CONFIGS_DIR}/alias.fish"
 	[ ! -e "${FISH_DIR}/config.fish" ] && exit 1
 	[ ! -e "${FISH_DIR}/fishfile" ] && exit 1
 	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit 1
+	[ ! -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit 1
 }
 
 function set_up_newsboat() {
