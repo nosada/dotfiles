@@ -20,8 +20,10 @@ alias gc='git clone'
 alias gh='git checkout'
 alias gf='git fetch'
 alias gs='git stash'
+alias gb='git branch'
 
 # shortened activities
 alias u='cd ..'
 alias uu='cd ../..'
 alias p='pwd'
+alias l='ls -alh'
