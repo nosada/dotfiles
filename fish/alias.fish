@@ -19,7 +19,8 @@ alias gp='git pull'
 alias gc='git clone'
 alias gh='git checkout'
 alias gf='git fetch'
-alias gs='git stash'
+alias gs='git status'
+alias gt='git status'
 alias gb='git branch'
 
 # shortened activities
