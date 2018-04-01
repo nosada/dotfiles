@@ -16,7 +16,11 @@ function set_up_fish_shell() {
 	FISH_DIR="${USER_CONF_DIR}/fish"
 	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
 	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
+	[ ! -d ${FISH_FUNCTIONS_DIR} ] && mkdir -p ${FISH_FUNCTIONS_DIR}
+	[ ! -d ${FISH_CONFIGS_DIR} ] && mkdir -p ${FISH_CONFIGS_DIR}
+
 	curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
+
 	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
 	[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
