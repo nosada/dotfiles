@@ -6,53 +6,58 @@ USER_LOCAL_DIR="${HOME}/.local"
 
 function check_vim_existence() { which "vim" &> /dev/null; }
 function check_neovim_existence() { which "nvim" &> /dev/null; }
+function exit-with-enoent() { ERRNO=2; exit ${ERRNO}; }
 
 function set_up_tmux() {
 	[ ! -h "${HOME}/.tmux.conf" ] && ln -s "${DOTFILES_DIR}/tmux.conf" "${HOME}/.tmux.conf"
-	[ ! -h "${HOME}/.tmux.conf" ] && exit 1
+	[ ! -h "${HOME}/.tmux.conf" ] && exit-with-enoent
 }
 
 function set_up_fish_shell() {
 	FISH_DIR="${USER_CONF_DIR}/fish"
 	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
 	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
+	FISH_COMPLETIONS_DIR="${USER_CONF_DIR}/fish/completions"
 	[ ! -d ${FISH_FUNCTIONS_DIR} ] && mkdir -p ${FISH_FUNCTIONS_DIR}
 	[ ! -d ${FISH_CONFIGS_DIR} ] && mkdir -p ${FISH_CONFIGS_DIR}
-
-	curl -Lo "${FISH_DIR}/functions/fisher.fish" --create-dirs https://git.io/fisher
+	[ ! -d ${FISH_COMPLETIONS_DIR} ] && mkdir -p ${FISH_COMPLETIONS_DIR}
 
 	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
+	[ ! -e "${FISH_DIR}/config.fish" ] && exit-with-enoent
 	[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
+	[ ! -e "${FISH_DIR}/fishfile" ] && exit-with-enoent
+
+	curl -Lo "${FISH_FUNCTIONS_DIR}/fisher.fish" --create-dirs https://git.io/fisher
+	[ ! -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit-with-enoent
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
+	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit-with-enoent
+
 	[ ! -h "${FISH_CONFIGS_DIR}/alias.fish" ] && ln -s "${DOTFILES_DIR}/fish/alias.fish" "${FISH_CONFIGS_DIR}/alias.fish"
-	[ ! -e "${FISH_DIR}/config.fish" ] && exit 1
-	[ ! -e "${FISH_DIR}/fishfile" ] && exit 1
-	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit 1
-	[ ! -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit 1
+	[ ! -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit-with-enoent
 }
 
 function set_up_newsboat() {
 	[ ! -e "${USER_CONF_DIR}/newsboat" ] && ln -s "${DOTFILES_DIR}/newsboat" "${USER_CONF_DIR}/newsboat"
+	[ ! -e "${USER_CONF_DIR}/newsboat" ] && exit-with-enoent
 	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && mkdir -p "${HOME}/.local/share/newsboat"
-	[ ! -e "${USER_CONF_DIR}/newsboat" ] && exit 1
-	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit 1
+	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit-with-enoent
 }
 
 function set_up_aria2() {
 	[ ! -e "${USER_CONF_DIR}/aria2" ] && ln -s "${DOTFILES_DIR}/aria2" "${USER_CONF_DIR}/aria2"
-	[ ! -e "${USER_CONF_DIR}/aria2" ] && exit 1
+	[ ! -e "${USER_CONF_DIR}/aria2" ] && exit-with-enoent
 }
 
 function set_up_vim() {
 	[ ! -e "${HOME}/.vimrc" ] && ln -s "${DOTFILES_DIR}/vim/init.vim" "${HOME}/.vimrc"
+	[ ! -e "${HOME}/.vimrc" ] && exit-with-enoent
 	[ ! -e "${HOME}/.vim" ] && ln -s "${DOTFILES_DIR}/vim/" "${HOME}/.vim"
-	[ ! -e "${HOME}/.vimrc" ] && exit 1
-	[ ! -e "${HOME}/.vim" ] && exit 1
+	[ ! -e "${HOME}/.vim" ] && exit-with-enoent
 }
 
 function set_up_neovim() {
 	[ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
-	[ ! -h "${HOME}/.config/nvim" ] && exit 1
+	[ ! -h "${HOME}/.config/nvim" ] && exit-with-enoent
 }
 
 function install_user_scripts() {
