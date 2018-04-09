@@ -9,6 +9,8 @@ function check_neovim_existence() { which "nvim" &> /dev/null; }
 function exit-with-enoent() { ERRNO=2; exit ${ERRNO}; }
 
 function set_up_tmux() {
+	[ ! -d "${HOME}/.tmux/plugins" ] && mkdir -p ${HOME}/.tmux/plugins
+	[ ! -d "${HOME}/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	[ ! -h "${HOME}/.tmux.conf" ] && ln -s "${DOTFILES_DIR}/tmux.conf" "${HOME}/.tmux.conf"
 	[ ! -h "${HOME}/.tmux.conf" ] && exit-with-enoent
 }
