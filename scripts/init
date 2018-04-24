@@ -2,7 +2,7 @@
 
 function load_ssh_keys
 	set BASEDIR "$HOME/.ssh"
-	for SUBDIR in (tree --noreport -d $BASEDIR | awk '{print $2}' | tail -n +2)
+	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
 		set SSH_DIR "$BASEDIR/$SUBDIR"
 		echo "Load SSH keys in $SSH_DIR"
 		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
@@ -21,7 +21,19 @@ function update_fisherman_plugins
 	fisher update
 end
 
+function update_pkgs_in_venvs
+	set BASEDIR "$HOME/Venvs"
+	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
+		set VENV_DIR "$BASEDIR/$SUBDIR"
+		source "$VENV_DIR/bin/activate.fish"
+		echo "Update packages in venv $VENV_DIR"
+		pip install --upgrade (pip list --format=freeze | awk -F= '{print $1}')
+		deactivate
+	end
+end
+
 echo "Hello!"
 load_ssh_keys
 update_fisherman_plugins
+update_pkgs_in_venvs
 echo "Done! Have a nice day!"
