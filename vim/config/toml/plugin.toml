@@ -72,3 +72,6 @@ repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
