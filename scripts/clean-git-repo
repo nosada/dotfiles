@@ -1,7 +1,4 @@
 #!/bin/bash
 
 git clean -f
-for MOD in `git status | grep modified | awk '{print $2}'`
-do
-	git checkout $MOD
-done
+git reset --hard

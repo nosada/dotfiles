@@ -25,3 +25,12 @@ $ ${HOME}/.dotfiles/clean.sh
 - fish
 - newsboat
 - aria2
+
+# Included scripts
+Below scripts are in `scripts/`:
+
+- `aria2c-normal`: aria2c wrapper to download file via HTTP(S)
+- `aria2c-torrent`: same as `aria2c-normal`, but download via Torrent
+- `clean-git-repo`: simply do `git clean -f; git reset --hard`
+- `generate-random-string`: generate random string from `/dev/urandom`
+- `hello`: initialize and update my daily use environment
