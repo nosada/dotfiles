@@ -25,10 +25,10 @@ function update_pkgs_in_venvs
 	set BASEDIR "$HOME/Venvs"
 	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
 		set VENV_DIR "$BASEDIR/$SUBDIR"
-		source "$VENV_DIR/bin/activate.fish"
+		set ACTIVATE "source $VENV_DIR/bin/activate"
 		echo "Update packages in venv $VENV_DIR"
-		pip install --upgrade (pip list --format=freeze | awk -F= '{print $1}')
-		deactivate
+		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | awk -F= '{print $1}'")
+		bash -c "$ACTIVATE; pip install --upgrade $PIP_PKGS"
 	end
 end
 
