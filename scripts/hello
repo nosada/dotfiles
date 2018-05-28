@@ -1,10 +1,14 @@
 #!/bin/fish
 
+function report
+	echo -e "\033[1;37m$argv\033[0;39m"
+end
+
 function load_ssh_keys
 	set BASEDIR "$HOME/.ssh"
 	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
 		set SSH_DIR "$BASEDIR/$SUBDIR"
-		echo "Load SSH keys in $SSH_DIR"
+		report "Load SSH keys in $SSH_DIR"
 		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
 			set SSH_KEY "$SSH_DIR/$KEY"
 			get --prompt "Load '$SSH_KEY' ? [y/N]" | read -l CONFIRM
@@ -17,7 +21,7 @@ function load_ssh_keys
 end
 
 function update_fisherman_plugins
-	echo "Update fisherman plugins."
+	report "Update fisherman plugins"
 	fisher update
 end
 
@@ -26,14 +30,14 @@ function update_pkgs_in_venvs
 	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
 		set VENV_DIR "$BASEDIR/$SUBDIR"
 		set ACTIVATE "source $VENV_DIR/bin/activate"
-		echo "Update packages in venv $VENV_DIR"
+		report "Update packages in venv $VENV_DIR"
 		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | awk -F= '{print $1}'")
 		bash -c "$ACTIVATE; pip install --upgrade $PIP_PKGS"
 	end
 end
 
-echo "Hello!"
+report "Hello!"
 load_ssh_keys
 update_fisherman_plugins
 update_pkgs_in_venvs
-echo "Done! Have a nice day!"
+report "Done! Have a nice day!"
