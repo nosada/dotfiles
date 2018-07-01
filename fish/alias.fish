@@ -28,6 +28,7 @@ alias gm='git merge'
 alias gs='git status'
 alias gt='git stash'
 alias gb='git branch'
+alias gr='git remote -v'
 
 # shortened activities
 alias u='cd ..'
