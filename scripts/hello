@@ -31,7 +31,7 @@ function update_pkgs_in_venvs
 		set VENV_DIR "$BASEDIR/$SUBDIR"
 		set ACTIVATE "source $VENV_DIR/bin/activate"
 		report "Update packages in venv $VENV_DIR"
-		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | awk -F= '{print $1}'")
+		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | cut -d '=' -f 1")
 		bash -c "$ACTIVATE; pip install --upgrade $PIP_PKGS"
 	end
 end
