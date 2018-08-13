@@ -36,3 +36,9 @@ alias uu='cd ../..'
 alias p='pwd'
 alias l='ls -alh'
 alias h='hostname'
+
+# shortened systemd-relate utilities
+alias s='systemctl'
+alias m='machinectl'
+alias r='resolvectl'
+alias j='journalctl'
