@@ -38,7 +38,7 @@ alias l='ls -alh'
 alias h='hostname'
 
 # shortened systemd-relate utilities
-alias s='systemctl'
-alias m='machinectl'
-alias r='resolvectl'
-alias j='journalctl'
+test (which systemctl); and alias s='systemctl'
+test (which machinectl); and alias m='machinectl'
+test (which resolvectl); and alias r='resolvectl'
+test (which journalctl); and alias j='journalctl'
