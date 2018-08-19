@@ -1,7 +1,7 @@
 " vim:set ts=2 sw=2 et:
 
 " Pathogen load
-filetype off
+filetype on
 call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
@@ -41,3 +41,6 @@ let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
+
+au BufRead,BufNewFile *.yml set filetype=yaml.ansible
+au BufRead,BufNewFile *.yaml set filetype=yaml.ansible

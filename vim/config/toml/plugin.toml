@@ -78,3 +78,6 @@ repo = 'junegunn/fzf.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'pearofducks/ansible-vim'
