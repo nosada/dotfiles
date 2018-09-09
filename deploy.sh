@@ -38,13 +38,6 @@ function set_up_fish_shell() {
 	[ ! -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit-with-enoent
 }
 
-function set_up_newsboat() {
-	[ ! -e "${USER_CONF_DIR}/newsboat" ] && ln -s "${DOTFILES_DIR}/newsboat" "${USER_CONF_DIR}/newsboat"
-	[ ! -e "${USER_CONF_DIR}/newsboat" ] && exit-with-enoent
-	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && mkdir -p "${HOME}/.local/share/newsboat"
-	[ ! -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit-with-enoent
-}
-
 function set_up_aria2() {
 	[ ! -e "${USER_CONF_DIR}/aria2" ] && ln -s "${DOTFILES_DIR}/aria2" "${USER_CONF_DIR}/aria2"
 	[ ! -e "${USER_CONF_DIR}/aria2" ] && exit-with-enoent
@@ -72,7 +65,6 @@ function install_user_scripts() {
 # call setup functions
 set_up_tmux
 set_up_fish_shell
-set_up_newsboat
 set_up_aria2
 check_vim_existence && set_up_vim
 check_neovim_existence && set_up_neovim

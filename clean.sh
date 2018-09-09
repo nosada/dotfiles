@@ -12,13 +12,6 @@ function remove_tmux_config() {
 	[ -h "${HOME}/.tmux.conf" ] && exit-with-eexist
 }
 
-function remove_newsboat_config() {
-	rm -f ${USER_CONF_DIR}/newsboat
-	[ -e "${USER_CONF_DIR}/newsboat" ] && exit-with-eexist
-	rm -rf ${USER_LOCAL_DIR}/share/newsboat
-	[ -e "${USER_LOCAL_DIR}/share/newsboat" ] && exit-with-eexist
-}
-
 function remove_aria2_config() {
 	rm -f ${USER_CONF_DIR}/aria2
 	[ -e "${USER_CONF_DIR}/aria2" ] && exit-with-eexist
