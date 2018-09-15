@@ -9,7 +9,6 @@ alias df='dfc'
 # definition of new alias
 alias C='xsel --input --clipboard'
 alias open='xdg-open'
-alias push-current-branch='git push -u origin HEAD'
 
 # abbreviation for git command
 alias ga='git add'
@@ -29,6 +28,7 @@ alias gs='git status'
 alias gt='git stash'
 alias gb='git branch'
 alias gr='git remote -v'
+alias gpcb='git push -u origin HEAD'  # Git Push Current Branch
 
 # shortened activities
 alias u='cd ..'
@@ -42,3 +42,4 @@ test (which systemctl); and alias s='systemctl'
 test (which machinectl); and alias m='machinectl'
 test (which resolvectl); and alias r='resolvectl'
 test (which journalctl); and alias j='journalctl'
+test (which networkctl); and alias n='networkctl'
