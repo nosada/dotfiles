@@ -1,7 +1,20 @@
 #!/bin/fish
 
-function report
-	echo -e "\033[1;37m$argv\033[0;39m"
+set script_name (basename (status -f))
+
+function usage
+	string trim "
+Initialize / update your daily-use environment
+
+Usage:
+	$script_name [ssh-key|fisherman|venv]
+
+Options:
+	ssh-key		Load your SSH private keys to ssh-agent
+	fisherman	Update fish shell plugins installed by fisherman
+	venv-pkgs	Update python packages installed on your venv(s)
+	<none>		Do all the above
+"
 end
 
 function load_ssh_keys
@@ -43,8 +56,35 @@ function update_pkgs_in_venvs
 	end
 end
 
-report "Hello!"
-load_ssh_keys
-update_fisherman_plugins
-update_pkgs_in_venvs
-report "Done! Have a nice day!"
+function report
+	echo -e "\033[1;37m$argv\033[0;39m"
+end
+
+function hello
+	argparse -n $script_name 'h/help' -- $argv
+	or return 1
+
+	if set -lq _flag_h
+		usage > /dev/stderr
+		return 1
+	end
+
+	report "Hello!"
+	if test -z "$argv"
+		load_ssh_keys
+		update_fisherman_plugins
+		update_pkgs_in_venvs
+	else
+		switch "$argv"
+		case "ssh-key"
+			load_ssh_keys
+		case "fisherman"
+			update_fisherman_plugins
+		case "venv-pkgs"
+			update_pkgs_in_venvs
+		end
+	end
+	report "Done! Have a nice day!"
+end
+
+hello $argv
