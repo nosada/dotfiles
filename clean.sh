@@ -52,7 +52,6 @@ function remove_fish_shell_config () {
 # call cleaning functions
 remove_tmux_config
 remove_fish_shell_config
-remove_newsboat_config
 remove_aria2_config
 check_vim_existence && remove_vim_config
 check_neovim_existence && remove_neovim_config
