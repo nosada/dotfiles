@@ -35,7 +35,13 @@ end
 
 function update_fisherman_plugins
 	report "Update fisherman plugins"
-	fisher update
+	if not functions -q fisher
+		echo "Installing fisher for the first time..." >&2
+		set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+		curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+	end
+	fisher self-update
+	fisher
 end
 
 function update_pkgs_in_venvs
@@ -45,6 +51,7 @@ function update_pkgs_in_venvs
 		set ACTIVATE "source $VENV_DIR/bin/activate"
 		report "Update packages in venv $VENV_DIR"
 		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | cut -d '=' -f 1")
+		bash -c "$ACTIVATE; pip install --upgrade pip"
 		bash -c "$ACTIVATE; pip install --upgrade $PIP_PKGS"
 	end
 end

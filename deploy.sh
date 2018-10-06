@@ -26,7 +26,7 @@ function set_up_fish_shell() {
 
 	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
 	[ ! -e "${FISH_DIR}/config.fish" ] && exit-with-enoent
-	[ ! -h "${FISH_DIR}/fishfile" ] && ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
+	[ ! -e "${FISH_DIR}/fishfile" ] && cp "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -e "${FISH_DIR}/fishfile" ] && exit-with-enoent
 
 	curl -Lo "${FISH_FUNCTIONS_DIR}/fisher.fish" --create-dirs https://git.io/fisher
