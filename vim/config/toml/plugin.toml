@@ -81,3 +81,6 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'pearofducks/ansible-vim'
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
