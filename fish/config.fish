@@ -1,4 +1,4 @@
-# vim:set ts=2 sw=2 et:
+set -gx PATH "$HOME/Scripts/" $PATH
 
 function fish_greeting
   fortune -a | cowsay | lolcat
@@ -7,3 +7,5 @@ end
 funcsave fish_greeting
 
 fish_vi_key_bindings
+
+# vim:set ts=2 sw=2 et:
