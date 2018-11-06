@@ -1,4 +1,4 @@
-set -gx PATH "$HOME/Scripts/" $PATH
+set -U fish_user_path "$HOME/Scripts/"
 
 function fish_greeting
   fortune -a | cowsay | lolcat
