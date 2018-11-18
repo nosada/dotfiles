@@ -9,7 +9,7 @@ alias df='dfc'
 # definition of new alias
 alias C='xsel --input --clipboard'
 alias open='xdg-open'
-alias clean-git-repo='git clean -dfx; git reset --hard' # yes it's alias to git comman but dangerous for removing files
+alias clean-git-repo='git clean -df; git reset --hard' # yes it's alias to git comman but dangerous for removing files
 
 # abbreviation for git command
 alias ga='git add'
