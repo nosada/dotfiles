@@ -1,15 +1,14 @@
 #!/bin/bash
 
-DOTFILES_DIR=`cd $(dirname $0); pwd`
+DOTFILES_DIR=$(cd "$(dirname "$0")" || exit; pwd)
 USER_CONF_DIR="${HOME}/.config"
-USER_LOCAL_DIR="${HOME}/.local"
 
-function check_vim_existence() { which "vim" &> /dev/null; }
-function check_neovim_existence() { which "nvim" &> /dev/null; }
+function check_vim_existence() { command -v "vim" &> /dev/null; }
+function check_neovim_existence() { command -v "nvim" &> /dev/null; }
 function exit-with-enoent() { ERRNO=2; exit ${ERRNO}; }
 
 function set_up_tmux() {
-	[ ! -d "${HOME}/.tmux/plugins" ] && mkdir -p ${HOME}/.tmux/plugins
+	[ ! -d "${HOME}/.tmux/plugins" ] && mkdir -p "${HOME}/.tmux/plugins"
 	[ ! -d "${HOME}/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	[ ! -h "${HOME}/.tmux.conf" ] && ln -s "${DOTFILES_DIR}/tmux.conf" "${HOME}/.tmux.conf"
 	[ ! -h "${HOME}/.tmux.conf" ] && exit-with-enoent
@@ -20,16 +19,16 @@ function set_up_fish_shell() {
 	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
 	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
 	FISH_COMPLETIONS_DIR="${USER_CONF_DIR}/fish/completions"
-	[ ! -d ${FISH_FUNCTIONS_DIR} ] && mkdir -p ${FISH_FUNCTIONS_DIR}
-	[ ! -d ${FISH_CONFIGS_DIR} ] && mkdir -p ${FISH_CONFIGS_DIR}
-	[ ! -d ${FISH_COMPLETIONS_DIR} ] && mkdir -p ${FISH_COMPLETIONS_DIR}
+	[ ! -d "${FISH_FUNCTIONS_DIR}" ] && mkdir -p "${FISH_FUNCTIONS_DIR}"
+	[ ! -d "${FISH_CONFIGS_DIR}" ] && mkdir -p "${FISH_CONFIGS_DIR}"
+	[ ! -d "${FISH_COMPLETIONS_DIR}" ] && mkdir -p "${FISH_COMPLETIONS_DIR}"
 
 	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
 	[ ! -e "${FISH_DIR}/config.fish" ] && exit-with-enoent
 	cp -f "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -e "${FISH_DIR}/fishfile" ] && exit-with-enoent
 
-	curl https://git.io/fisher --create-dirs -sSLo $FISH_FUNCTIONS_DIR/fisher.fish
+	curl https://git.io/fisher --create-dirs -sSLo "$FISH_FUNCTIONS_DIR/fisher.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit-with-enoent
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit-with-enoent
@@ -59,7 +58,7 @@ function install_user_scripts() {
 	if [ ! -d "${HOME}/Scripts/" ]; then
 		mkdir -p "${HOME}/Scripts"
 	fi
-	rsync -avu ${DOTFILES_DIR}/scripts/ ${HOME}/Scripts/
+	rsync -avu "${DOTFILES_DIR}/scripts/" "${HOME}/Scripts/"
 }
 
 # call setup functions

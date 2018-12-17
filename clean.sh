@@ -1,31 +1,30 @@
 #!/bin/bash
 
 USER_CONF_DIR="${HOME}/.config"
-USER_LOCAL_DIR="${HOME}/.local"
 
-function check_vim_existence() { which "vim" &> /dev/null; }
-function check_neovim_existence() { which "nvim" &> /dev/null; }
+function check_vim_existence() { command -v "vim" &> /dev/null; }
+function check_neovim_existence() { command -v "nvim" &> /dev/null; }
 function exit-with-eexist() { ERRNO=17; exit ${ERRNO}; }
 
 function remove_tmux_config() {
-	rm -f ${HOME}/.tmux.conf
+	rm -f "${HOME}/.tmux.conf"
 	[ -h "${HOME}/.tmux.conf" ] && exit-with-eexist
 }
 
 function remove_aria2_config() {
-	rm -f ${USER_CONF_DIR}/aria2
+	rm -f "${USER_CONF_DIR}/aria2"
 	[ -e "${USER_CONF_DIR}/aria2" ] && exit-with-eexist
 }
 
 function remove_vim_config() {
-	rm -f ${HOME}/.vimrc
+	rm -f "${HOME}/.vimrc"
 	[ -e "${HOME}/.vimrc" ] && exit-with-eexist
-	rm -f ${HOME}/.vim
+	rm -f "${HOME}/.vim"
 	[ -e "${HOME}/.vim" ] && exit-with-eexist
 }
 
 function remove_neovim_config() {
-	rm -f ${HOME}/.config/nvim
+	rm -f "${HOME}/.config/nvim"
 	[ -h "${HOME}/.config/nvim" ] && exit-with-eexist
 }
 
@@ -33,7 +32,6 @@ function remove_fish_shell_config () {
 	FISH_DIR="${USER_CONF_DIR}/fish"
 	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
 	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
-	FISH_COMPLETIONS_DIR="${USER_CONF_DIR}/fish/completions"
 
 	rm -f "${FISH_DIR}/config.fish"
 	[ -e "${FISH_DIR}/config.fish" ] && exit-with-eexist
