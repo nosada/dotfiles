@@ -24,7 +24,7 @@ function load_ssh_keys
 		report "Load SSH keys in $SSH_DIR"
 		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
 			set SSH_KEY "$SSH_DIR/$KEY"
-			get --prompt "Load '$SSH_KEY' ? [y/N]" | read -l CONFIRM
+			read -l -P "Load '$SSH_KEY'? [y/N] " CONFIRM
 			switch $CONFIRM
 				case Y y
 					ssh-add "$SSH_KEY"
