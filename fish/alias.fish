@@ -1,6 +1,6 @@
 # vim:set ts=2 sw=2 et:
 
-# replacement of command
+# replacement of commands
 alias diff='colordiff'
 alias du='cdu -isdh'
 alias top='htop'
@@ -37,6 +37,7 @@ alias uu='cd ../..'
 alias p='pwd'
 alias l='ls -alh'
 alias h='hostname'
+alias ta='tmux attach -d'
 
 # shortened systemd-relate utilities
 test (which systemctl); and alias s='systemctl'
