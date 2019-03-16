@@ -71,8 +71,8 @@ function hello
 
 	report "Hello!"
 	if test -z "$argv"
-		load_ssh_keys
 		update_fisher_plugins
+		load_ssh_keys
 		update_pkgs_in_venvs
 	else
 		switch "$argv"
