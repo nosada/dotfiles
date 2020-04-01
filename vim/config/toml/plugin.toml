@@ -87,3 +87,6 @@ repo = 'rust-lang/rust.vim'
 
 [[plugins]]
 repo = 'tpope/vim-abolish'
+
+[[plugins]]
+repo = 'bfredl/nvim-miniyank'
