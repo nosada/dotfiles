@@ -40,8 +40,7 @@ function update_fisher_plugins
 		set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
 		curl https://git.io/fisher --create-dirs -sSLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
 	end
-	fisher self-update
-	fisher
+	fisher update
 end
 
 function update_pkgs_in_venvs
