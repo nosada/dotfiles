@@ -36,15 +36,51 @@ call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 
 " denite
-nnoremap <silent> ,ub :<C-u>Denite buffer<CR>
-nnoremap <silent> ,uf :<C-u>DeniteBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Denite -buffer-name=register register<CR>
-nnoremap <silent> ,um :<C-u>Denite file_mru<CR>
-nnoremap <silent> ,uu :<C-u>Denite buffer file_mru<CR>
-nnoremap <silent> ,ua :<C-u>DeniteBufferDir -buffer-name=files buffer file_mru file<CR>
-au FileType denite nnoremap <silent> <buffer> <expr> <C-j> denite#do_action('split')
-au FileType denite inoremap <silent> <buffer> <expr> <C-j> denite#do_action('split')
-au FileType denite nnoremap <silent> <buffer> <expr> <C-l> denite#do_action('vsplit')
-au FileType denite inoremap <silent> <buffer> <expr> <C-l> denite#do_action('vsplit')
-au FileType denite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType denite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+"  <C-o> open Denite-file-buffer-list
+"    <Esc>      close Denite-file-buffer-list
+"    <Space>    select multiple files/buffers
+"    <CR>       open files/buffers
+"    o          open files/buffers
+"    s          open files/buffers in split windows (horizonal)
+"    v          open files/buffers in split windows (vertical)
+"    i          filter by string
+"    ..         move to directory above
+nnoremap <silent> <C-o> :<C-u>Denite file buffer file:new<CR>
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
+" coc-yank
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+
+" fzf-preview.vim (coc extension)
+nmap <Leader>f [fzf-p]
+xmap <Leader>f [fzf-p]
+
+nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
+nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
+nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
+nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
+nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>

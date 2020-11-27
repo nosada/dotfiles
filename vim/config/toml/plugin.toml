@@ -2,13 +2,7 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
 repo = 'Shougo/denite.nvim'
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
@@ -27,9 +21,6 @@ repo = 'plasticboy/vim-markdown'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
@@ -59,9 +50,6 @@ repo = 'tmux-plugins/vim-tmux'
 repo = 'tmux-plugins/vim-tmux-focus-events'
 
 [[plugins]]
-repo = 'dag/vim-fish'
-
-[[plugins]]
 repo = 'kassio/neoterm'
 
 [[plugins]]
@@ -80,13 +68,10 @@ repo = 'junegunn/fzf.vim'
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
-repo = 'pearofducks/ansible-vim'
-
-[[plugins]]
-repo = 'rust-lang/rust.vim'
-
-[[plugins]]
 repo = 'tpope/vim-abolish'
 
 [[plugins]]
 repo = 'bfredl/nvim-miniyank'
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
