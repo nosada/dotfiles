@@ -19,7 +19,3 @@ let g:syntastic_check_on_wq = 0
 " miniyank settings
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
-
-" set filetype
-au BufRead,BufNewFile *.yml set filetype=yaml.ansible
-au BufRead,BufNewFile *.yaml set filetype=yaml.ansible

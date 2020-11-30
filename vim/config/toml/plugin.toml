@@ -17,9 +17,6 @@ repo = 'thinca/vim-quickrun'
 repo = 'godlygeek/tabular'
 
 [[plugins]]
-repo = 'plasticboy/vim-markdown'
-
-[[plugins]]
 repo = 'tpope/vim-surround'
 
 [[plugins]]
@@ -36,9 +33,6 @@ repo = 'tpope/vim-pathogen'
 
 [[plugins]]
 repo = 'scrooloose/syntastic'
-
-[[plugins]]
-repo = 'python-mode/python-mode'
 
 [[plugins]]
 repo = 'powerman/vim-plugin-viewdoc'
