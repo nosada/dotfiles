@@ -69,6 +69,8 @@ repo = 'bfredl/nvim-miniyank'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
+rev = 'master'
+build = 'yarn install --frozen-lockfile'
 
 [[plugins]]
 repo = 'kamykn/spelunker.vim'
