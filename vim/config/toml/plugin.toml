@@ -69,3 +69,9 @@ repo = 'bfredl/nvim-miniyank'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
+
+[[plugins]]
+repo = 'kamykn/spelunker.vim'
+
+[[plugins]]
+repo = 'amykn/popup-menu.nvim'

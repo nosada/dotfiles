@@ -14,7 +14,7 @@ colorscheme hybrid
 
 " settings for editing
 set cursorline
-set spelllang=en,cjk
+set nospell
 set list
 set listchars=tab:>-,trail:-,eol:$,extends:>,precedes:<,nbsp:%
 set number
