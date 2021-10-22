@@ -45,7 +45,7 @@ end
 
 function update_pkgs_in_venvs
 	set BASEDIR "$HOME/Venvs"
-	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
+	for SUBDIR in (ls -l $BASEDIR/ | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
 		set VENV_DIR "$BASEDIR/$SUBDIR"
 		set ACTIVATE "source $VENV_DIR/bin/activate"
 		report "Update packages in venv $VENV_DIR"
