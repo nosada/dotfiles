@@ -23,7 +23,6 @@ $ ${HOME}/.dotfiles/clean.sh
 - vim
 - neovim
 - fish
-- newsboat
 - aria2
 
 # Included scripts
