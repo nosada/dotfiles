@@ -32,6 +32,8 @@ function set_up_fish_shell() {
 	[ ! -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit-with-enoent
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit-with-enoent
+	[ ! -h "${FISH_FUNCTIONS_DIR}/fish_greeting.fish" ] && ln -s "${DOTFILES_DIR}/fish/fish_greeting.fish" "${FISH_FUNCTIONS_DIR}/fish_greeting.fish"
+	[ ! -e "${FISH_FUNCTIONS_DIR}/fish_greeting.fish" ] && exit-with-enoent
 
 	[ ! -h "${FISH_CONFIGS_DIR}/alias.fish" ] && ln -s "${DOTFILES_DIR}/fish/alias.fish" "${FISH_CONFIGS_DIR}/alias.fish"
 	[ ! -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit-with-enoent
