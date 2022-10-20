@@ -24,14 +24,14 @@ function load_ssh_keys
 		report "Load SSH keys in $SSH_DIR"
 		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
 			set SSH_KEY "$SSH_DIR/$KEY"
-			read -l -P "Load '$SSH_KEY'? [y/N] " CONFIRM
-			switch $CONFIRM
-				case Y y
-					if ssh-add -l | grep (ssh-keygen -lf "$SSH_KEY") > /dev/null
-						echo "Key $SSH_KEY already loaded. Skipping"
-					else
+			if ssh-add -l | grep (ssh-keygen -lf "$SSH_KEY") > /dev/null
+				echo "Key $SSH_KEY already loaded. Skipping"
+			else
+				read -l -P "Load '$SSH_KEY'? [y/N] " CONFIRM
+				switch $CONFIRM
+					case Y y
 						ssh-add "$SSH_KEY"
-					end
+				end
 			end
 		end
 	end
