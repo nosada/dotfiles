@@ -27,7 +27,11 @@ function load_ssh_keys
 			read -l -P "Load '$SSH_KEY'? [y/N] " CONFIRM
 			switch $CONFIRM
 				case Y y
-					ssh-add "$SSH_KEY"
+					if ssh-add -l | grep (ssh-keygen -lf "$SSH_KEY") > /dev/null
+						echo "Key $SSH_KEY already loaded. Skipping"
+					else
+						ssh-add "$SSH_KEY"
+					end
 			end
 		end
 	end
