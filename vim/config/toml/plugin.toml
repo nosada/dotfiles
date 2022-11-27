@@ -62,15 +62,6 @@ repo = 'tpope/vim-fugitive'
 repo = 'tpope/vim-abolish'
 
 [[plugins]]
-repo = 'bfredl/nvim-miniyank'
-
-[[plugins]]
 repo = 'neoclide/coc.nvim'
 rev = 'master'
 build = 'yarn install --frozen-lockfile'
-
-[[plugins]]
-repo = 'kamykn/spelunker.vim'
-
-[[plugins]]
-repo = 'amykn/popup-menu.nvim'

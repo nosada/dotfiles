@@ -9,7 +9,6 @@ alias df='dfc'
 # definition of new alias
 alias C='xsel --input --clipboard'
 alias open='xdg-open'
-alias clean-git-repo='git clean -df; git reset --hard' # yes it's alias to git comman but dangerous for removing files
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # abbreviation for git command
