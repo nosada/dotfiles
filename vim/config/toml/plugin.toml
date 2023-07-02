@@ -65,3 +65,7 @@ repo = 'tpope/vim-abolish'
 repo = 'neoclide/coc.nvim'
 rev = 'master'
 build = 'yarn install --frozen-lockfile'
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_post_update = 'TSUpdate'
