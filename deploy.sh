@@ -37,6 +37,15 @@ function set_up_fish_shell() {
 
 	[ ! -h "${FISH_CONFIGS_DIR}/alias.fish" ] && ln -s "${DOTFILES_DIR}/fish/alias.fish" "${FISH_CONFIGS_DIR}/alias.fish"
 	[ ! -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit-with-enoent
+
+	if [ ! -h "${FISH_CONFIGS_DIR}/alias.specific.fish" ]; then
+		if [[ $(uname -s) = "Linux" ]]; then
+			ln -s "${DOTFILES_DIR}/fish/alias.linux.fish" "${FISH_CONFIGS_DIR}/alias.specific.fish"
+		elif [[ $(uname -s) = "Darwin" ]]; then 
+			ln -s "${DOTFILES_DIR}/fish/alias.darwin.fish" "${FISH_CONFIGS_DIR}/alias.specific.fish"
+		fi
+	fi
+	[ ! -e "${FISH_CONFIGS_DIR}/alias.specific.fish" ] && exit-with-enoent
 }
 
 function set_up_aria2() {
@@ -61,6 +70,13 @@ function install_user_scripts() {
 		mkdir -p "${HOME}/Scripts"
 	fi
 	rsync -avu "${DOTFILES_DIR}/scripts/" "${HOME}/Scripts/"
+	if [[ $(uname -s) = "Linux" ]]; then
+		mv -f "${HOME}/Scripts/hello.linux" "${HOME}/Scripts/hello"
+		rm -f "${HOME}/Scripts/hello.darwin"
+	elif [[ $(uname -s) = "Darwin" ]]; then
+		mv -f "${HOME}/Scripts/hello.darwin" "${HOME}/Scripts/hello"
+		rm -f "${HOME}/Scripts/hello.linux"
+	fi
 }
 
 # call setup functions

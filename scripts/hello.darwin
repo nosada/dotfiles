@@ -1,0 +1,112 @@
+#!/usr/local/bin/fish
+
+set script_name (basename (status -f))
+
+function usage
+	string trim "
+Initialize / update your daily-use environment
+
+Usage:
+	$script_name [ssh-key|fisher|venv]
+
+Options:
+	ssh-key			Load your SSH private keys to ssh-agent
+	fisher		Update fish shell plugins installed by fisher
+	venv-pkgs		Update python packages installed on your venv(s)
+	homebrew		Update Homebrew packages
+	create-ramdisk	Create ramdisk and mount it to $HOME/Downloads
+	<none>			Do all the above
+"
+end
+
+function load_ssh_keys
+	set BASEDIR "$HOME/.ssh"
+	for SUBDIR in (ls -l "$BASEDIR/" | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
+		set SSH_DIR "$BASEDIR/$SUBDIR"
+		report "Load SSH keys in $SSH_DIR"
+		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
+			set SSH_KEY "$SSH_DIR/$KEY"
+			if ssh-add -l | grep (ssh-keygen -lf "$SSH_KEY") > /dev/null
+				echo "Key $SSH_KEY already loaded. Skipping"
+			else
+				read -l -P "Load '$SSH_KEY'? [y/N] " CONFIRM
+				switch $CONFIRM
+					case Y y
+						ssh-add "$SSH_KEY"
+				end
+			end
+		end
+	end
+end
+
+function update_fisher_plugins
+	report "Update fisher plugins"
+	if not functions -q fisher
+		echo "Installing fisher for the first time..." >&2
+		set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+		curl https://git.io/fisher --create-dirs -sSLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+	end
+	fisher update
+end
+
+function update_homebrew
+	report "Update packages installed via Homebrew"
+	brew update
+	brew upgrade --greedy
+	brew cleanup -s --prune=all
+end
+
+function update_pkgs_in_venvs
+	set BASEDIR "$HOME/Venvs"
+	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
+		set VENV_DIR "$BASEDIR/$SUBDIR"
+		set ACTIVATE "source $VENV_DIR/bin/activate"
+		report "Update packages in venv $VENV_DIR"
+		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | cut -d '=' -f 1")
+		bash -c "$ACTIVATE; pip install --upgrade pip"
+		bash -c "$ACTIVATE; pip install --upgrade $PIP_PKGS"
+	end
+end
+
+function create_ramdisk
+	create-and-mount-ramdisk 10
+end
+
+function report
+	echo -e "\033[1;37m$argv\033[0;39m"
+end
+
+function hello
+	argparse -n $script_name 'h/help' -- $argv
+	or return 1
+
+	if set -lq _flag_h
+		usage > /dev/stderr
+		return 1
+	end
+
+	report "Hello!"
+	if test -z "$argv"
+		update_fisher_plugins
+		load_ssh_keys
+		update_homebrew
+		update_pkgs_in_venvs
+		create_ramdisk
+	else
+		switch "$argv"
+		case "ssh-key"
+			load_ssh_keys
+		case "fisher"
+			update_fisher_plugins
+		case "venv-pkgs"
+			update_pkgs_in_venvs
+		case "homebrew"
+			update_homebrew
+		case "create-ramdisk"
+			create_ramdisk
+		end
+	end
+	report "Done! Have a nice day!"
+end
+
+hello $argv

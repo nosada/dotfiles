@@ -6,11 +6,6 @@ alias du='cdu -isdh'
 alias top='htop'
 alias df='dfc'
 
-# definition of new alias
-alias C='xsel --input --clipboard'
-alias open='xdg-open'
-[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
-
 # abbreviation for git command
 alias ga='git add'
 alias gaa='git add -A'
@@ -38,10 +33,3 @@ alias p='pwd'
 alias l='ls -alh'
 alias h='hostname'
 alias ta='tmux attach -d'
-
-# shortened systemd-relate utilities
-test (which systemctl); and alias s='systemctl'
-test (which machinectl); and alias m='machinectl'
-test (which resolvectl); and alias r='resolvectl'
-test (which journalctl); and alias j='journalctl'
-test (which networkctl); and alias n='networkctl'

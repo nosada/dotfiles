@@ -47,6 +47,8 @@ function remove_fish_shell_config () {
 
 	rm -f "${FISH_CONFIGS_DIR}/alias.fish"
 	[ -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit-with-eexist
+	rm -f "${FISH_CONFIGS_DIR}/alias.specific.fish"
+	[ -e "${FISH_CONFIGS_DIR}/alias.specific.fish" ] && exit-with-eexist
 }
 
 # call cleaning functions
