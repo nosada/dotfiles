@@ -73,6 +73,7 @@ function install_user_scripts() {
 	if [[ $(uname -s) = "Linux" ]]; then
 		mv -f "${HOME}/Scripts/hello.linux" "${HOME}/Scripts/hello"
 		rm -f "${HOME}/Scripts/hello.darwin"
+		rm -f "${HOME}/Scripts/create-and-mount-ramdisk"
 	elif [[ $(uname -s) = "Darwin" ]]; then
 		mv -f "${HOME}/Scripts/hello.darwin" "${HOME}/Scripts/hello"
 		rm -f "${HOME}/Scripts/hello.linux"

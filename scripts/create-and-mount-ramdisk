@@ -1,0 +1,34 @@
+#!/bin/bash
+
+function is_already_mounted() {
+	ALREADY_MOUNTED=$(mount | grep "$HOME/Downloads")
+	if [[ ! "$ALREADY_MOUNTED" = "" ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+if [ $# -eq 1 ]; then
+	DISK_SIZE_IN_GIBIBYTE="$1"
+else
+	echo "usage: $0 SIZE_IN_GiB" > /dev/stderr
+	exit 1
+fi
+
+
+if is_already_mounted; then
+	echo "Ramdisk is already mounted on $HOME/Downloads"
+else
+	GIBIBYTE=$(echo "2 ^ 30" | bc)
+	SECTOR="512"
+	DISK_SIZE_IN_SECTORS=$(echo "($DISK_SIZE_IN_GIBIBYTE * $GIBIBYTE) / $SECTOR" | bc)
+
+	echo "Create $DISK_SIZE_IN_GIBIBYTE GiB ramdisk."
+	RAMDISK=$(hdiutil attach -nomount ram://"$DISK_SIZE_IN_SECTORS" | awk '{print $1}')
+	echo "Ramdisk $RAMDISK created."
+	echo "Create HFS on ramdisk $RAMDISK."
+	newfs_hfs "$RAMDISK"
+	echo "Mount ramdisk $RAMDISK on $HOME/Downloads as HFS."
+	mount -t hfs "$RAMDISK" "$HOME/Downloads"
+fi
