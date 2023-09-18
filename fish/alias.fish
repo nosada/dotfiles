@@ -2,7 +2,6 @@
 
 # replacement of commands
 alias diff='colordiff'
-alias du='cdu -isdh'
 alias top='htop'
 alias df='dfc'
 

@@ -1,16 +1,9 @@
 # vim:set ts=2 sw=2 et:
 
 # definition of new alias
+alias du='cdu -isdh'
 alias C='xsel --input --clipboard'
 alias open='xdg-open'
-
-# shortened activities
-alias u='cd ..'
-alias uu='cd ../..'
-alias p='pwd'
-alias l='ls -alh'
-alias h='hostname'
-alias ta='tmux attach -d'
 
 # shortened systemd-relate utilities
 alias s='systemctl'
