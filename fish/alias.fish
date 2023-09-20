@@ -1,6 +1,7 @@
 # vim:set ts=2 sw=2 et:
 
 # replacement of commands
+alias vim='nvim'
 alias diff='colordiff'
 alias top='htop'
 alias df='dfc'
