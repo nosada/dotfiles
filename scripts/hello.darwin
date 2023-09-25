@@ -1,4 +1,4 @@
-#!/usr/local/bin/fish
+#!/usr/bin/env fish
 
 set script_name (basename (status -f))
 
@@ -41,11 +41,6 @@ end
 
 function update_fisher_plugins
 	report "Update fisher plugins"
-	if not functions -q fisher
-		echo "Installing fisher for the first time..." >&2
-		set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-		curl https://git.io/fisher --create-dirs -sSLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-	end
 	fisher update
 end
 
@@ -54,6 +49,8 @@ function update_homebrew
 	brew update
 	brew upgrade --greedy
 	brew cleanup -s --prune=all
+	rm -rf (brew --cache)
+	brew autoremove
 end
 
 function update_pkgs_in_venvs

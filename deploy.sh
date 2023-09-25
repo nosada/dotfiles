@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DOTFILES_DIR=$(cd "$(dirname "$0")" || exit; pwd)
 USER_CONF_DIR="${HOME}/.config"
@@ -23,13 +23,18 @@ function set_up_fish_shell() {
 	[ ! -d "${FISH_CONFIGS_DIR}" ] && mkdir -p "${FISH_CONFIGS_DIR}"
 	[ ! -d "${FISH_COMPLETIONS_DIR}" ] && mkdir -p "${FISH_COMPLETIONS_DIR}"
 
-	[ ! -h "${FISH_DIR}/config.fish" ] && ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
-	[ ! -e "${FISH_DIR}/config.fish" ] && exit-with-enoent
+	if [ -e "${FISH_DIR}/config.fish" ]; then
+		rm -f "${FISH_DIR}/config.fish"
+		ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
+	fi
 	cp -f "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -e "${FISH_DIR}/fishfile" ] && exit-with-enoent
-
-	curl https://git.io/fisher --create-dirs -sSLo "$FISH_FUNCTIONS_DIR/fisher.fish"
+	curl https://git.io/fisher --create-dirs -sSLo "${FISH_FUNCTIONS_DIR}/fisher.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit-with-enoent
+	for plugin in $(cat "${FISH_DIR}/fishfile"); do
+		fish -c "fisher install \"$plugin\""
+	done
+
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit-with-enoent
 	[ ! -h "${FISH_FUNCTIONS_DIR}/fish_greeting.fish" ] && ln -s "${DOTFILES_DIR}/fish/fish_greeting.fish" "${FISH_FUNCTIONS_DIR}/fish_greeting.fish"
