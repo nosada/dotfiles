@@ -33,3 +33,5 @@ alias p='pwd'
 alias l='ls -alh'
 alias h='hostname'
 alias ta='tmux attach -d'
+alias a2n="aria2c --conf-path $HOME/.config/aria2/aria2.conf"
+alias a2t="aria2c --conf-path $HOME/.config/aria2/aria2.conf.bittorrent"
