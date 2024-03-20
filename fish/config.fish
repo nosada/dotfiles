@@ -8,4 +8,6 @@ if status is-interactive
   fish_vi_key_bindings
 end
 
+thefuck --alias | source
+
 # vim:set ts=2 sw=2 et:
