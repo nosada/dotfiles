@@ -2,30 +2,27 @@
 
 USER_CONF_DIR="${HOME}/.config"
 
-function check_vim_existence() { command -v "vim" &> /dev/null; }
-function check_neovim_existence() { command -v "nvim" &> /dev/null; }
-function exit-with-eexist() { ERRNO=17; exit ${ERRNO}; }
-
 function remove_tmux_config() {
 	rm -f "${HOME}/.tmux.conf"
-	[ -h "${HOME}/.tmux.conf" ] && exit-with-eexist
+	rm -f "${HOME}/.tmux"
+	[ -h "${HOME}/.tmux.conf" ] && exit 17
 }
 
 function remove_aria2_config() {
 	rm -f "${USER_CONF_DIR}/aria2"
-	[ -e "${USER_CONF_DIR}/aria2" ] && exit-with-eexist
+	[ -e "${USER_CONF_DIR}/aria2" ] && exit 17
 }
 
 function remove_vim_config() {
 	rm -f "${HOME}/.vimrc"
-	[ -e "${HOME}/.vimrc" ] && exit-with-eexist
+	[ -e "${HOME}/.vimrc" ] && exit 17
 	rm -f "${HOME}/.vim"
-	[ -e "${HOME}/.vim" ] && exit-with-eexist
+	[ -e "${HOME}/.vim" ] && exit 17
 }
 
 function remove_neovim_config() {
 	rm -f "${HOME}/.config/nvim"
-	[ -h "${HOME}/.config/nvim" ] && exit-with-eexist
+	[ -h "${HOME}/.config/nvim" ] && exit 17
 }
 
 function remove_fish_shell_config () {
@@ -34,29 +31,26 @@ function remove_fish_shell_config () {
 	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
 
 	rm -f "${FISH_DIR}/config.fish"
-	[ -e "${FISH_DIR}/config.fish" ] && exit-with-eexist
+	[ -e "${FISH_DIR}/config.fish" ] && exit 17
 	rm -f "${FISH_DIR}/fishfile"
-	[ -e "${FISH_DIR}/fishfile" ] && exit-with-eexist
+	[ -e "${FISH_DIR}/fishfile" ] && exit 17
 
 	rm -f "${FISH_FUNCTIONS_DIR}/fisher.fish"
-	[ -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit-with-eexist
+	[ -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit 17
 	rm -f "${FISH_FUNCTIONS_DIR}/ls.fish"
-	[ -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit-with-eexist
+	[ -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit 17
 	rm -f "${FISH_FUNCTIONS_DIR}/fish_greeting.fish"
-	[ -e "${FISH_FUNCTIONS_DIR}/fish_greeting.fish" ] && exit-with-eexist
+	[ -e "${FISH_FUNCTIONS_DIR}/fish_greeting.fish" ] && exit 17
 
 	rm -f "${FISH_CONFIGS_DIR}/alias.fish"
-	[ -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit-with-eexist
+	[ -e "${FISH_CONFIGS_DIR}/alias.fish" ] && exit 17
 	rm -f "${FISH_CONFIGS_DIR}/alias.specific.fish"
-	[ -e "${FISH_CONFIGS_DIR}/alias.specific.fish" ] && exit-with-eexist
+	[ -e "${FISH_CONFIGS_DIR}/alias.specific.fish" ] && exit 17
 }
 
 # call cleaning functions
 remove_tmux_config
 remove_fish_shell_config
 remove_aria2_config
-check_vim_existence && remove_vim_config
-check_neovim_existence && remove_neovim_config
-
-# return 0 if everything ok
-exit 0
+remove_vim_config
+remove_neovim_config
