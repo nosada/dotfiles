@@ -4,7 +4,7 @@ USER_CONF_DIR="${HOME}/.config"
 
 function remove_tmux_config() {
 	rm -f "${HOME}/.tmux.conf"
-	rm -f "${HOME}/.tmux"
+	rm -rf "${HOME}/.tmux"
 	[ -h "${HOME}/.tmux.conf" ] && exit 17
 }
 
