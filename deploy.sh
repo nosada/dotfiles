@@ -118,3 +118,5 @@ set_up_aria2
 set_up_neovim
 set_up_vim
 install_user_scripts
+
+exit 0

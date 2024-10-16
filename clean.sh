@@ -54,3 +54,5 @@ remove_fish_shell_config
 remove_aria2_config
 remove_vim_config
 remove_neovim_config
+
+exit 0
