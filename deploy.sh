@@ -26,24 +26,26 @@ function set_up_fish_shell() {
 	fi
 
 	FISH_DIR="${USER_CONF_DIR}/fish"
-	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
-	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
-	FISH_COMPLETIONS_DIR="${USER_CONF_DIR}/fish/completions"
+
+	FISH_FUNCTIONS_DIR="${FISH_DIR}/functions"
+	FISH_CONFIGS_DIR="${FISH_DIR}/conf.d"
+	FISH_COMPLETIONS_DIR="${FISH_DIR}/completions"
 	[ ! -d "${FISH_FUNCTIONS_DIR}" ] && mkdir -p "${FISH_FUNCTIONS_DIR}"
 	[ ! -d "${FISH_CONFIGS_DIR}" ] && mkdir -p "${FISH_CONFIGS_DIR}"
 	[ ! -d "${FISH_COMPLETIONS_DIR}" ] && mkdir -p "${FISH_COMPLETIONS_DIR}"
 
-	if [ -e "${FISH_DIR}/config.fish" ]; then
-		rm -f "${FISH_DIR}/config.fish"
-		ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
-	fi
-	cp -f "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
+	[ -e "${FISH_DIR}/config.fish" ] && rm -f "${FISH_DIR}/config.fish"
+	ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
+
+	[ -e "${FISH_DIR}/fish/fishfile" ] && rm -f "${FISH_DIR}/fish/fishfile"
+	ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -e "${FISH_DIR}/fishfile" ] && exit 2
+
 	curl https://git.io/fisher --create-dirs -sSLo "${FISH_FUNCTIONS_DIR}/fisher.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/fisher.fish" ] && exit 2
-	for plugin in $(cat "${FISH_DIR}/fishfile"); do
+	while read -r plugin; do
 		fish -c "fisher install \"$plugin\""
-	done
+	done < "${FISH_DIR}/fishfile"
 
 	[ ! -h "${FISH_FUNCTIONS_DIR}/ls.fish" ] && ln -s "${DOTFILES_DIR}/fish/ls.fish" "${FISH_FUNCTIONS_DIR}/ls.fish"
 	[ ! -e "${FISH_FUNCTIONS_DIR}/ls.fish" ] && exit 2
@@ -56,7 +58,7 @@ function set_up_fish_shell() {
 	if [ ! -h "${FISH_CONFIGS_DIR}/alias.specific.fish" ]; then
 		if [[ $(uname -s) = "Linux" ]]; then
 			ln -s "${DOTFILES_DIR}/fish/alias.linux.fish" "${FISH_CONFIGS_DIR}/alias.specific.fish"
-		elif [[ $(uname -s) = "Darwin" ]]; then 
+		elif [[ $(uname -s) = "Darwin" ]]; then
 			ln -s "${DOTFILES_DIR}/fish/alias.darwin.fish" "${FISH_CONFIGS_DIR}/alias.specific.fish"
 		fi
 	fi

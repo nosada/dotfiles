@@ -27,8 +27,8 @@ function remove_neovim_config() {
 
 function remove_fish_shell_config () {
 	FISH_DIR="${USER_CONF_DIR}/fish"
-	FISH_FUNCTIONS_DIR="${USER_CONF_DIR}/fish/functions"
-	FISH_CONFIGS_DIR="${USER_CONF_DIR}/fish/conf.d"
+	FISH_FUNCTIONS_DIR="${FISH_DIR}/functions"
+	FISH_CONFIGS_DIR="${FISH_DIR}/conf.d"
 
 	rm -f "${FISH_DIR}/config.fish"
 	[ -e "${FISH_DIR}/config.fish" ] && exit 17
