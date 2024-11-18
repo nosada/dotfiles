@@ -8,7 +8,7 @@ end
 if test -e /opt/homebrew/opt/gnu-tar/libexec/gnubin
   set GNU_PATH "/opt/homebrew/opt/gnu-tar/libexec/gnubin" "$GNU_PATH"
 end
-set -x PATH "$GNU_PATH" "$HOME/Scripts"
+set -x PATH "$GNU_PATH" "$PATH" "$HOME/Scripts"
 
 if which -a nvim > /dev/null
   set -x EDITOR nvim
