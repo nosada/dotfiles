@@ -1,4 +1,14 @@
-set -x PATH $PATH "$HOME/Scripts"
+set GNU_PATH ""
+if test -e /opt/homebrew/opt/coreutils/libexec/gnubin
+  set GNU_PATH "/opt/homebrew/opt/coreutils/libexec/gnubin" "$GNU_PATH"
+end
+if test -e /opt/homebrew/opt/gnu-sed/libexec/gnubin
+  set GNU_PATH "/opt/homebrew/opt/gnu-sed/libexec/gnubin" "$GNU_PATH"
+end
+if test -e /opt/homebrew/opt/gnu-tar/libexec/gnubin
+  set GNU_PATH "/opt/homebrew/opt/gnu-tar/libexec/gnubin" "$GNU_PATH"
+end
+set -x PATH "$GNU_PATH" "$HOME/Scripts"
 
 if which -a nvim > /dev/null
   set -x EDITOR nvim
