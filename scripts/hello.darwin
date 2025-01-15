@@ -53,6 +53,11 @@ function update_homebrew
 	brew autoremove
 end
 
+function update_mas
+	report "Update Mac App Store apps via mas"
+	mas upgrade
+end
+
 function update_pkgs_in_venvs
 	set BASEDIR "$HOME/Venvs"
 	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
@@ -88,6 +93,7 @@ function hello
 		update_fisher_plugins
 		load_ssh_keys
 		update_homebrew
+		update_mas
 		update_pkgs_in_venvs
 		create_ramdisk
 	else
@@ -100,6 +106,8 @@ function hello
 			update_pkgs_in_venvs
 		case "homebrew"
 			update_homebrew
+		case "mas"
+			update_mas
 		case "create-ramdisk"
 			create_ramdisk
 		end
