@@ -9,6 +9,11 @@ function is_already_mounted() {
 	fi
 }
 
+if [[ ! $(uname -s) = "Darwin" ]]; then
+	echo "Please run me on macOS" >> /dev/stderr
+	exit 1
+fi
+
 if [ $# -eq 1 ]; then
 	DISK_SIZE_IN_GIBIBYTE="$1"
 else
