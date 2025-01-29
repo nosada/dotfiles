@@ -59,15 +59,21 @@ function update_mas
 end
 
 function update_pkgs_in_venvs
+	if which uv > /dev/null
+		set PIP "uv pip"
+	else
+		set PIP "pip"
+	end
+
 	set BASEDIR "$HOME/Venvs"
 	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
 		set VENV_DIR "$BASEDIR/$SUBDIR"
 		set ACTIVATE "source $VENV_DIR/bin/activate"
 		report "Update packages in venv $VENV_DIR"
 		set PIP_PKGS (bash -c "$ACTIVATE; pip list --format=freeze | cut -d '=' -f 1")
-		bash -c "$ACTIVATE; pip install --upgrade pip"
-		bash -c "$ACTIVATE; pip install --upgrade $PIP_PKGS"
-		bash -c "$ACTIVATE; pip freeze > $BASEDIR/requirements.$SUBDIR.txt"
+		bash -c "$ACTIVATE; $PIP install --upgrade pip"
+		bash -c "$ACTIVATE; $PIP install --upgrade $PIP_PKGS"
+		bash -c "$ACTIVATE; $PIP freeze > $BASEDIR/requirements.$SUBDIR.txt"
 	end
 end
 
