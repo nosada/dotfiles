@@ -20,7 +20,6 @@ $ ${HOME}/.dotfiles/clean.sh
 
 # Covered configs
 - tmux
-- vim
 - neovim
 - fish
 - aria2
