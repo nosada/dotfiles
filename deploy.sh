@@ -79,7 +79,7 @@ function set_up_neovim() {
 		echo "Neovim not exists. Skipping"
 		return
 	fi
-	[ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
+	[ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/nvim/" "${USER_CONF_DIR}/nvim"
 	[ ! -h "${HOME}/.config/nvim" ] && exit 2
 }
 
