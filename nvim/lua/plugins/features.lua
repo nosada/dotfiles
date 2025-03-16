@@ -1,17 +1,16 @@
 return {
   {
     "goolord/alpha-nvim",
-    -- dependencies = { 'echasnovski/mini.icons' },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
+      "echasnovski/mini.icons",
+      "Shatur/neovim-session-manager",
+      "nvim-lua/plenary.nvim",
     },
     config = function()
-      local startify = require("alpha.themes.startify")
-      -- available: devicons, mini, default is mini
-      -- if provider not loaded and enabled is true, it will try to use another provider
-      startify.file_icons.provider = "devicons"
+      local theme = require("alpha.themes.dashboard")
       require("alpha").setup(
-        startify.config
+        theme.config
       )
     end,
   },
