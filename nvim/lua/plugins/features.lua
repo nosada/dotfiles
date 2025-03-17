@@ -4,7 +4,6 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "echasnovski/mini.icons",
-      "Shatur/neovim-session-manager",
       "nvim-lua/plenary.nvim",
     },
     config = function()
@@ -12,6 +11,15 @@ return {
       require("alpha").setup(
         theme.config
       )
+    end,
+  },
+  {
+    "Shatur/neovim-session-manager",
+    config = function()
+      local config = require('session_manager.config')
+      require('session_manager').setup({
+        autoload_mode = config.AutoloadMode.Disabled,
+      })
     end,
   },
   {
@@ -61,10 +69,6 @@ return {
         },
       })
     end,
-    build = function()
-      require("nvim-treesitter.install").update({
-        with_sync = true
-      })()
-    end,
+    build = ":TSUpdate",
   },
 }
