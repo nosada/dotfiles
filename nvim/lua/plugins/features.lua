@@ -34,17 +34,37 @@ return {
     "cohama/lexima.vim",
   },
   {
+    "lewis6991/gitsigns.nvim",
+  },
+  {
+    "f-person/git-blame.nvim",
+  },
+  {
     "williamboman/mason.nvim",
-    lazy = false,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
     }
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        sync_install = true,
+        highlight = {
+          enable = true,
+        },
+        indent = {
+          enable = true,
+        },
+      })
+    end,
     build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })()
+      require("nvim-treesitter.install").update({
+        with_sync = true
+      })()
     end,
   },
 }
