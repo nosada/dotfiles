@@ -43,18 +43,21 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    opts = {},
   },
   {
     "f-person/git-blame.nvim",
   },
   {
     "williamboman/mason.nvim",
+    opts = {},
   },
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
-    }
+    },
+    opts = {},
   },
   {
     "nvim-treesitter/nvim-treesitter",
