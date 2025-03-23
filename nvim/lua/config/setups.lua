@@ -1,3 +1,3 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
-require('gitsigns').setup()
+require("gitsigns").setup()

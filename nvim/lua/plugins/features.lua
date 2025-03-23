@@ -71,4 +71,8 @@ return {
     end,
     build = ":TSUpdate",
   },
+  {
+    "nvimdev/indentmini.nvim",
+    opts = {},
+  },
 }
