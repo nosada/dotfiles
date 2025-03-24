@@ -16,8 +16,8 @@ return {
   {
     "Shatur/neovim-session-manager",
     config = function()
-      local config = require('session_manager.config')
-      require('session_manager').setup({
+      local config = require("session_manager.config")
+      require("session_manager").setup({
         autoload_mode = config.AutoloadMode.Disabled,
       })
     end,
@@ -37,6 +37,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    opts = {},
   },
   {
     "cohama/lexima.vim",
@@ -47,6 +48,7 @@ return {
   },
   {
     "f-person/git-blame.nvim",
+    opts = {},
   },
   {
     "williamboman/mason.nvim",
