@@ -59,7 +59,9 @@ return {
     dependencies = {
       "neovim/nvim-lspconfig",
     },
-    opts = {},
+    opts = {
+      automatic_installation = true,
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",
