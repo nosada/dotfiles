@@ -9,13 +9,17 @@ if [ $# -eq 2 ]; then
 	fi
 	LENGTH=$2
 else
-	echo "usage: $0 <alnum|print|digit> <length>" > /dev/stderr
-	echo "- Specify 'alnum' if you want to use only alphabets and numbers"
-	echo "- Specify 'print' if you want to use all of ascii letters"
-	echo "- Specify 'digit' if you want to use all of numeric letters"
-	echo "- Specify length of string as 'length' argument"
+	cat <<- EOT > /dev/stderr
+	Usage: $0 <alnum|print|digit> LENGTH
+
+	Generate random string with LENGTH length
+
+	Options:
+	    alnum    Generate string only with alphabets and numbers
+	    print    Generate string with ASCII letters
+	    digit    Generate string only with numeric letters
+	EOT
 	exit 22
 fi
 
-
-cat /dev/urandom | LC_ALL=C tr -dc '[:'${TYPE}':]' | head -c ${LENGTH}
+LC_ALL=C tr -dc '[:'"${TYPE}"':]' < /dev/random | head -c "${LENGTH}"
