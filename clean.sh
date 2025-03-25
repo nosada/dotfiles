@@ -13,13 +13,6 @@ function remove_aria2_config() {
 	[ -e "${USER_CONF_DIR}/aria2" ] && exit 17
 }
 
-function remove_vim_config() {
-	rm -f "${HOME}/.vimrc"
-	[ -e "${HOME}/.vimrc" ] && exit 17
-	rm -f "${HOME}/.vim"
-	[ -e "${HOME}/.vim" ] && exit 17
-}
-
 function remove_neovim_config() {
 	rm -f "${HOME}/.config/nvim"
 	[ -h "${HOME}/.config/nvim" ] && exit 17
@@ -52,7 +45,6 @@ function remove_fish_shell_config () {
 remove_tmux_config
 remove_fish_shell_config
 remove_aria2_config
-remove_vim_config
 remove_neovim_config
 
 exit 0

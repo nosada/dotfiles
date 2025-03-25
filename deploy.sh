@@ -74,27 +74,12 @@ function set_up_aria2() {
 	[ ! -e "${USER_CONF_DIR}/aria2" ] && exit 2
 }
 
-function set_up_vim() {
-	if ! check_existence vim; then
-		echo "Vim not exists. Skipping"
-		return
-	fi
-	if check_existence nvim; then
-		echo "Neovim exists. Skipping"
-		return
-	fi
-	[ ! -e "${HOME}/.vimrc" ] && ln -s "${DOTFILES_DIR}/vim/init.vim" "${HOME}/.vimrc"
-	[ ! -e "${HOME}/.vimrc" ] && exit 2
-	[ ! -e "${HOME}/.vim" ] && ln -s "${DOTFILES_DIR}/vim/" "${HOME}/.vim"
-	[ ! -e "${HOME}/.vim" ] && exit 2
-}
-
 function set_up_neovim() {
 	if ! check_existence nvim; then
 		echo "Neovim not exists. Skipping"
 		return
 	fi
-	[ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/vim/" "${USER_CONF_DIR}/nvim"
+	[ ! -h "${HOME}/.config/nvim" ] && ln -s "${DOTFILES_DIR}/nvim/" "${USER_CONF_DIR}/nvim"
 	[ ! -h "${HOME}/.config/nvim" ] && exit 2
 }
 
@@ -118,7 +103,6 @@ set_up_tmux
 set_up_fish_shell
 set_up_aria2
 set_up_neovim
-set_up_vim
 install_user_scripts
 
 exit 0
