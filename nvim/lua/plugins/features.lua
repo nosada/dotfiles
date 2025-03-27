@@ -34,4 +34,8 @@ return {
     "j-hui/fidget.nvim",
     opts = {},
   },
+  {
+    "johmsalas/text-case.nvim",
+    opts = {},
+  },
 }
