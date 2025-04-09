@@ -28,3 +28,6 @@ vim.opt.textwidth = 0
 vim.opt.visualbell = false
 vim.opt.wrap = true
 vim.opt.writebackup = false
+
+-- feature-specific options
+vim.lsp.set_log_level("off")
