@@ -33,7 +33,7 @@ else
 	RAMDISK=$(hdiutil attach -nomount ram://"$DISK_SIZE_IN_SECTORS" | awk '{print $1}')
 	echo "Ramdisk $RAMDISK created."
 	echo "Create HFS on ramdisk $RAMDISK."
-	newfs_hfs "$RAMDISK"
+	newfs_hfs -v "Downloads" "$RAMDISK"
 	echo "Mount ramdisk $RAMDISK on $HOME/Downloads as HFS."
 	mount -t hfs "$RAMDISK" "$HOME/Downloads"
 fi
