@@ -37,7 +37,7 @@ function set_up_fish_shell() {
 	[ -e "${FISH_DIR}/config.fish" ] && rm -f "${FISH_DIR}/config.fish"
 	ln -s "${DOTFILES_DIR}/fish/config.fish" "${FISH_DIR}/config.fish"
 
-	[ -e "${FISH_DIR}/fish/fishfile" ] && rm -f "${FISH_DIR}/fish/fishfile"
+	[ -e "${FISH_DIR}/fishfile" ] && rm -f "${FISH_DIR}/fishfile"
 	ln -s "${DOTFILES_DIR}/fish/fishfile" "${FISH_DIR}/fishfile"
 	[ ! -e "${FISH_DIR}/fishfile" ] && exit 2
 
