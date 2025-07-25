@@ -11,10 +11,11 @@ Usage:
 
 Options:
 	ssh-key			Load your SSH private keys to ssh-agent
-	fisher		Update fish shell plugins installed by fisher
+	fisher			Update fish shell plugins installed by fisher
 	venv-pkgs		Update python packages installed on your venv(s)
 	homebrew		Update Homebrew packages
-	create-ramdisk	Create ramdisk and mount it to $HOME/Downloads
+	mas			Update App Store Apps using mas-cli
+	create-ramdisk		Create ramdisk and mount it to $HOME/Downloads
 	<none>			Do all the above
 "
 end
