@@ -3,8 +3,6 @@
 # replacement of commands
 alias vim='nvim'
 alias diff='colordiff'
-alias top='htop'
-alias df='dfc'
 
 # abbreviation for git command
 alias ga='git add'

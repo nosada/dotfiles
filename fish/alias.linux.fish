@@ -1,7 +1,6 @@
 # vim:set ts=2 sw=2 et:
 
 # definition of new alias
-alias du='cdu -isdh'
 alias C='xsel --input --clipboard'
 alias open='xdg-open'
 
