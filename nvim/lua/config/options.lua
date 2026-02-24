@@ -1,4 +1,4 @@
-vim.opt.ambiwidth = "double"
+vim.opt.ambiwidth = "single"
 vim.opt.autoindent = true
 vim.opt.backup = false
 vim.opt.clipboard = "unnamed,unnamedplus"

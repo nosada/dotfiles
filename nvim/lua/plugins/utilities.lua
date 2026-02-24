@@ -1,17 +1,22 @@
 return {
   {
-    "goolord/alpha-nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "echasnovski/mini.icons",
-      "nvim-lua/plenary.nvim",
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      explorer = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      picker = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = true },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
     },
-    config = function()
-      local theme = require("alpha.themes.dashboard")
-      require("alpha").setup(
-        theme.config
-      )
-    end,
   },
   {
     "Shatur/neovim-session-manager",
@@ -27,7 +32,6 @@ return {
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
       "hrsh7th/nvim-cmp",
     },
     opts = {
@@ -35,15 +39,18 @@ return {
         bottom_search = true,
         command_palette = false,
         long_message_to_split = false,
+        inc_rename = false,
         lsp_doc_border = false,
       },
       cmdline = {
         view = "cmdline",
       },
-      messages = {
-        view = "mini",
-        view_warn = "mini",
-        view_error = "mini",
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        }
       }
     },
   },
