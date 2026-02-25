@@ -23,6 +23,7 @@ alias gt='git stash'
 alias gb='git branch'
 alias gr='git remote -v'
 alias gpcb='git push -u origin HEAD'  # Git Push Current Branch
+alias gw='git wt'
 
 # shortened activities
 alias u='cd ..'

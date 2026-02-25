@@ -8,20 +8,18 @@ end
 if test -e /opt/homebrew/opt/gnu-tar/libexec/gnubin
   set GNU_PATH "/opt/homebrew/opt/gnu-tar/libexec/gnubin" "$GNU_PATH"
 end
-set -x PATH "$GNU_PATH" "$PATH" "$HOME/Scripts"
-
-if which -a nvim > /dev/null
-  set -x EDITOR nvim
-end
-
-if test -e /opt/homebrew/bin/brew
-  eval (/opt/homebrew/bin/brew shellenv)
-end
 
 if status is-interactive
+  set -x PATH "$GNU_PATH" "$PATH" "$HOME/Scripts"
+  if which -a nvim > /dev/null
+    set -x EDITOR nvim
+  end
+  if test -e /opt/homebrew/bin/brew
+    eval (/opt/homebrew/bin/brew shellenv)
+  end
   fish_vi_key_bindings
+  thefuck --alias | source
+  git wt --init fish | source
 end
-
-thefuck --alias | source
 
 # vim:set ts=2 sw=2 et:
