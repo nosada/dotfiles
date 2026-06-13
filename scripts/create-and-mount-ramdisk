@@ -30,7 +30,7 @@ else
 	DISK_SIZE_IN_SECTORS=$(echo "($DISK_SIZE_IN_GIBIBYTE * $GIBIBYTE) / $SECTOR" | bc)
 
 	echo "Create $DISK_SIZE_IN_GIBIBYTE GiB ramdisk."
-	RAMDISK=$(hdiutil attach -nomount ram://"$DISK_SIZE_IN_SECTORS" | awk '{print $1}')
+	RAMDISK=$(diskutil image attach --noMount ram://"$DISK_SIZE_IN_SECTORS" | awk '{print $1}')
 	echo "Ramdisk $RAMDISK created."
 	echo "Create HFS on ramdisk $RAMDISK."
 	newfs_hfs -v "Downloads" "$RAMDISK"
