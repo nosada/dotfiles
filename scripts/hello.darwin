@@ -47,9 +47,9 @@ end
 
 function update_homebrew
 	report "Update packages installed via Homebrew"
-	brew update
-	brew upgrade --greedy
-	brew cleanup -s --prune=all
+	brew update --force
+	brew upgrade --greedy --no-ask
+	brew cleanup --scrub --prune=all
 	rm -rf (brew --cache)
 	brew autoremove
 end
