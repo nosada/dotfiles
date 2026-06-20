@@ -25,4 +25,7 @@ return {
     end,
     build = ":TSUpdate",
   },
+  {
+    'martineausimon/nvim-lilypond-suite',
+  },
 }
