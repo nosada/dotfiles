@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 
 set script_name (basename (status -f))
 
@@ -10,16 +10,16 @@ Usage:
 	$script_name [ssh-key|fisher|venv]
 
 Options:
-	ssh-key		Load your SSH private keys to ssh-agent
-	fisher		Update fish shell plugins installed by fisher
-	venv-pkgs	Update python packages installed on your venv(s)
-	<none>		Do all the above
+	ssh-key			Load your SSH private keys to ssh-agent
+	fisher			Update fish shell plugins installed by fisher
+	venv-pkgs		Update python packages installed on your venv(s)
+	<none>			Do all the above
 "
 end
 
 function load_ssh_keys
 	set BASEDIR "$HOME/.ssh"
-	for SUBDIR in (ls -l $BASEDIR | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
+	for SUBDIR in (ls -l "$BASEDIR/" | grep -E '^[dl]' | awk '{print $8}' | sed -e 's/\///g')
 		set SSH_DIR "$BASEDIR/$SUBDIR"
 		report "Load SSH keys in $SSH_DIR"
 		for KEY in (ls $SSH_DIR | grep id_ | grep -v '.pub')
@@ -55,7 +55,7 @@ function update_pkgs_in_venvs
 	end
 
 	set BASEDIR "$HOME/Venvs"
-	for SUBDIR in (ls -l $BASEDIR/ | grep '^d' | awk '{print $8}' | sed -e 's/\///g')
+	for SUBDIR in (ls -l "$BASEDIR/" | grep -E '^[dl]' | awk '{print $8}' | sed -e 's/\///g')
 		set VENV_DIR "$BASEDIR/$SUBDIR"
 		set ACTIVATE "source $VENV_DIR/bin/activate"
 		report "Update packages in venv $VENV_DIR"
