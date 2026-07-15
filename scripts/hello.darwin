@@ -84,7 +84,9 @@ function update_pkgs_in_venvs
 end
 
 function create_ramdisk
-	create-and-mount-ramdisk 10
+	# Heulistics: allocate 1/3 of RAM as ramdisk; that might be sufficient for general use, at lease for me
+	set DISK_SIZE (math -s0 (sysctl -n hw.memsize) / 1e9 / 3)
+	create-and-mount-ramdisk $DISK_SIZE
 end
 
 function report
