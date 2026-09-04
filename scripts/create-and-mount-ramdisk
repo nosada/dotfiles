@@ -1,39 +1,64 @@
-#!/bin/bash
 
-function is_already_mounted() {
-	ALREADY_MOUNTED=$(mount | grep "$HOME/Downloads")
-	if [[ ! "$ALREADY_MOUNTED" = "" ]]; then
-		return 0
-	else
-		return 1
+MOUNT_POINT="${HOME}/Downloads"
+
+function create_ramdisk() {
+	DISK_SIZE_IN_GIB=$1
+	SECTORS_PER_GIB=2097152 # 2**20
+	DISK_SIZE_IN_SECTORS=$((DISK_SIZE_IN_GIB * SECTORS_PER_GIB))
+
+	RAMDISK=$(diskutil image attach --noMount "ram://$DISK_SIZE_IN_SECTORS" | awk 'NR == 1 { print $1 }')
+
+	if [[ -z "$RAMDISK" ]]; then
+		echo "Failed to create ramdisk." > /dev/stderr
+		exit 1
 	fi
 }
 
-if [[ ! $(uname -s) = "Darwin" ]]; then
-	echo "Please run me on macOS" >> /dev/stderr
+function create_filesystem() {
+	APFS_VOLUME=$(
+		diskutil apfs create "$RAMDISK" "Downloads" |
+		awk '/Disk from APFS operation:/ { print $NF }' |
+		tail -1
+	)
+
+	if [[ -z "$APFS_VOLUME" ]]; then
+		echo "Failed to find APFS volume." >&2
+		exit 1
+	fi
+}
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+	echo "Please run me on macOS" > /dev/stderr
 	exit 1
 fi
 
-if [ $# -eq 1 ]; then
-	DISK_SIZE_IN_GIBIBYTE="$1"
+if [[ $# -eq 1 && "$1" =~ ^[0-9]+$ ]]; then
+	DISK_SIZE_IN_GIB="$1"
 else
 	echo "usage: $0 SIZE_IN_GiB" > /dev/stderr
 	exit 1
 fi
 
-
-if is_already_mounted; then
-	echo "Ramdisk is already mounted on $HOME/Downloads"
-else
-	GIBIBYTE=$(echo "2 ^ 30" | bc)
-	SECTOR="512"
-	DISK_SIZE_IN_SECTORS=$(echo "($DISK_SIZE_IN_GIBIBYTE * $GIBIBYTE) / $SECTOR" | bc)
-
-	echo "Create $DISK_SIZE_IN_GIBIBYTE GiB ramdisk."
-	RAMDISK=$(diskutil image attach --noMount ram://"$DISK_SIZE_IN_SECTORS" | awk '{print $1}')
-	echo "Ramdisk $RAMDISK created."
-	echo "Create HFS on ramdisk $RAMDISK."
-	newfs_hfs -v "Downloads" "$RAMDISK"
-	echo "Mount ramdisk $RAMDISK on $HOME/Downloads as HFS."
-	mount -t hfs "$RAMDISK" "$HOME/Downloads"
+if mount | grep -Fq "on $MOUNT_POINT "; then
+	echo "Ramdisk is already mounted on $MOUNT_POINT"
+	exit 0
 fi
+
+echo "Create $DISK_SIZE_IN_GIB GiB ramdisk."
+create_ramdisk "$DISK_SIZE_IN_GIB"
+echo "Ramdisk $RAMDISK created."
+
+echo "Create APFS on ramdisk $RAMDISK."
+create_filesystem
+echo "APFS volume $APFS_VOLUME created."
+
+diskutil unmount "$APFS_VOLUME"
+mkdir -p "$MOUNT_POINT"
+echo "Mount APFS volume $APFS_VOLUME on $MOUNT_POINT."
+
+if ! mount_apfs -o noowners "$APFS_VOLUME" "$MOUNT_POINT"; then
+	echo "Failed to mount $APFS_VOLUME." > /dev/stderr
+	exit 1
+fi
+
+echo "Ramdisk mounted on $MOUNT_POINT."
